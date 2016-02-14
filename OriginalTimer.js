@@ -40,7 +40,7 @@
  * 　◆パラメータ
  * 　　引数1：タイマーの設定を行う場合の引数 [設定 or SET]
  * 　　引数2：タイマーの種類[アップ or ダウン or UP or DOWN] 
- * 　　引数3：設定時間 (1d1h1m1s1x1c のように記載)[日 or D  時間 or H  分 or M  秒 or S X(1/10秒) C(1/100秒)]
+ * 　　引数3：設定時間 (1d1h1m1s1x1c のように記載)[日 or d  時間 or h  分 or m  秒 or s x(1/10秒) c(1/100秒)]
  * 　　引数4：ピクチャ番号[1～100]
  * 　　引数5：フォントサイズ
  * 　　引数6：画面Ｘ
@@ -127,14 +127,14 @@
   var fontsize; 
   var name = "";
   var origin = 0;
-  var x
-  var y
+  var x;
+  var y;
   var scaleX = 100;
   var scaleY = 100;
   var opacity;
   var blendMode = 0;
-  var display_mode
-  var OriginalTimer
+  var display_mode;
+  var OriginalTimer;
   
   var _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
   Game_Interpreter.prototype.pluginCommand = function(command, args) {
@@ -155,7 +155,7 @@
         }
       Game_Timer.prototype.fftfantt_OriginalTimer_initialize();
       $gameTimer._fftfantt_OriginalTimer_Set = true;
-      timer_set(args)
+      timer_set(args);
       }
 
       if (commnd_type == '開始' || commnd_type == '再開' || commnd_type.toUpperCase() == 'START'){
@@ -202,23 +202,20 @@
   };
   
   function timer_set(args){
-
     timer_type = args[1];
     var timer_tmp_array = args[2].match(/((\d+)(d|日))?((\d+)(h|時間))?((\d+)(m|分間?))?((\d+)(s|秒間?))?((\d+)(x))?((\d+)(c))?/);
-    timer_limit = 0
+    timer_limit = 0;
     if (timer_tmp_array[2])  timer_limit = timer_limit + parseInt(timer_tmp_array[2],10) * 8640000;
     if (timer_tmp_array[5])  timer_limit = timer_limit + parseInt(timer_tmp_array[5],10) * 360000;
     if (timer_tmp_array[8])  timer_limit = timer_limit + parseInt(timer_tmp_array[8],10) * 6000;
-    if (timer_tmp_array[11]) timer_limit = timer_limit + parseInt(timer_tmp_array[11],10) * 100
-    if (timer_tmp_array[14]) timer_limit = timer_limit + parseInt(timer_tmp_array[14],10) * 10
+    if (timer_tmp_array[11]) timer_limit = timer_limit + parseInt(timer_tmp_array[11],10) * 100;
+    if (timer_tmp_array[14]) timer_limit = timer_limit + parseInt(timer_tmp_array[14],10) * 10;
     if (timer_tmp_array[17]) timer_limit = timer_limit + parseInt(timer_tmp_array[17],10);
-
     pictureId = parseInt(args[3],10);
     fontsize = parseInt(args[4],10);
     x = parseInt(args[5],10);
     y = parseInt(args[6],10);
     display_mode = args[7];
-  
     if (display_mode == '非表示' || display_mode.toUpperCase() == 'HIDE'){
       $gameTimer._fftfantt_OriginalTimer_Display = false;
       opacity = 0;
@@ -236,8 +233,6 @@
     count_unit = 1000;
     if (~timer_text.indexOf('X')) count_unit = 100;
     if (~timer_text.indexOf('C')) count_unit = 10;
-    
-    
     $gameTimer._fftfantt_OriginalTimer_Timer_Type = timer_type;
     $gameTimer._fftfantt_OriginalTimer_Timer_Limit = args[2];
     $gameTimer._fftfantt_OriginalTimer_Timer_Text = timer_text;
@@ -249,7 +244,7 @@
     $gameTimer._fftfantt_OriginalTimer_Timer_Text = timer_text;
   
     $gameTimer._fftfantt_OriginalTimer_Set = true;
-    count = $gameTimer._fftfantt_OriginalTimer_Count
+    count = $gameTimer._fftfantt_OriginalTimer_Count;
   }
   
   function timer_run(){
@@ -269,7 +264,7 @@
     min = parseInt((count_time % 360000) / 6000,10);
     sec = parseInt((count_time % 6000)/100,10);
     Hsec = count_time % 100;
-    show_text = timer_text
+    show_text = timer_text;
     show_text = show_text.replace("D",day);
     show_text = show_text.replace("HH",("0"+hr).slice(-2));
     show_text = show_text.replace("H",hr);
@@ -329,7 +324,7 @@
       if ($gameTimer._fftfantt_OriginalTimer_Run) {
         $gameVariables._data[parseInt(args[2],10)] = 'RUN';
       } else {
-        $gameVariables._data[parseInt(args[2],10)] = 'STOP'
+        $gameVariables._data[parseInt(args[2],10)] = 'STOP';
       }
       return;
     }
@@ -470,7 +465,7 @@
   
   Game_Timer.prototype.fftfantt_OriginalTimer_updateBitmap = function() {
     if ($gameTimer !== null){
-        if (!$gameTimer._fftfantt_OriginalTimer_Run) return;
+        if (!$gameTimer._fftfantt_OriginalTimer_Set) return;
     }
 
     var args = [];
@@ -484,6 +479,7 @@
     args[7] = $gameTimer._fftfantt_OriginalTimer_Display_Mode;
     args[8] = $gameTimer._fftfantt_OriginalTimer_Timer_Text;
     timer_set(args);
+    if (!$gameTimer._fftfantt_OriginalTimer_Run) return;
     clearInterval(OriginalTimer);
     OriginalTimer = setInterval(timer_run,count_unit);
   }
