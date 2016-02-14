@@ -46,6 +46,7 @@
  * 　　引数6：画面Ｘ
  * 　　引数7：画面Ｙ
  * 　　引数8：表示モード[表示 or 非表示 or DISPLAY or HIDE]
+ * 　　引数9：表示形式[D日 HH時MM分SS.XC秒 や HH:MM:SS:XC で自由に]
  * 　◆コマンド例
  * 　　オリジナルタイマー 設定 ダウン 2d1h30m 99 24 10 10 表示 D日 HH時MM分SS.XC秒
  * 　　ORIGINALTIMER SET DOWN 1h30m 99 24 10 10 DISPLAY HH:MM:SS:XC
