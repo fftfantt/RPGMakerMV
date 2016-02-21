@@ -16,6 +16,9 @@
  * @plugindesc オリジナルタイマー
  * @author fftfantt
  *
+ * @param TimerSave
+ * @desc タイマーの値をセーブデータに含めるか YES or NO
+ * @default NO
  * @help
  * 
  * ■説明
@@ -109,32 +112,44 @@
  */
 
 (function () {
-  var count;
-  var count_unit;
-  var count_time;
-  var commnd_type;
-  var timer_type;
-  var timer_limit;
-  var day;
-  var hr;
-  var min;
-  var sec;
-  var Hsec;
-  var timer_text;
-  var show_text;
+  
+  var parameters = PluginManager.parameters('OriginalTimer');
+  var TimerSave = parameters['TimerSave'].toUpperCase();
+  
+  var OriginalTimer = null;
+  var SetFlag = false;
+  var RunFlag = false;
+  var DisplayMode = '表示';
+  var Count = 0;
+  var CountUnit = 0;
+  var CountTime = 0;
+  var CommndType = '';
+  var TimerType = 0;
+  var TimerLimit = 0;
+  var day = 0;
+  var hr = 0;
+  var min = 0;
+  var sec = 0;
+  var Hsec = 0;
+  var TimerText = '';
+  var ShowText = '';
  
-  var pictureId;
-  var fontsize; 
-  var name = "";
+  var pictureId = 0;
+  var fontsize = 32; 
+  var name = '';
   var origin = 0;
-  var x;
-  var y;
+  var x = 0;
+  var y = 0;
   var scaleX = 100;
   var scaleY = 100;
-  var opacity;
+  var opacity = 255;
   var blendMode = 0;
-  var display_mode;
-  var OriginalTimer;
+
+
+  //=============================================================================
+  // Game_Interpreter_pluginCommand
+  //  プラグインコマンドが実行されたときに処理されます
+  //=============================================================================
   
   var _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
   Game_Interpreter.prototype.pluginCommand = function(command, args) {
@@ -142,154 +157,220 @@
    
     if (command === "オリジナルタイマー" || command.toUpperCase() === "ORIGINALTIMER" ) {
       if ($gameTimer !== null){
-        if (!Object.prototype.hasOwnProperty.call($gameTimer, '_fftfantt_OriginalTimer_Run')){
-          Game_Timer.prototype.fftfantt_OriginalTimer_initialize();
+        if (!Object.prototype.hasOwnProperty.call($gameTimer, '_fftfanttOriginalTimer_Run')){
+           if (TimerSave == 'YES') Game_Timer.prototype.fftfanttOriginalTimer_Initialize();
         }
       }
-      commnd_type = args[0];
+      CommndType = args[0];
       
-      if (commnd_type == '設定' || commnd_type.toUpperCase() == 'SET'){
-        if ($gameTimer._fftfantt_OriginalTimer_Run){
+      if (CommndType == '設定' || CommndType.toUpperCase() == 'SET'){
+        if (RunFlag){
           console.log('オリジナルタイマーは実行中です');
           return;
         }
-      Game_Timer.prototype.fftfantt_OriginalTimer_initialize();
-      $gameTimer._fftfantt_OriginalTimer_Set = true;
-      timer_set(args);
+      SetFlag = true;
+      if (TimerSave == 'YES'){
+        Game_Timer.prototype.fftfanttOriginalTimer_Initialize();
+        $gameTimer._fftfanttOriginalTimer_Set = true;
       }
-
-      if (commnd_type == '開始' || commnd_type == '再開' || commnd_type.toUpperCase() == 'START'){
-        if ($gameTimer._fftfantt_OriginalTimer_Run){
+      TimerSet(args);
+      }
+      if (CommndType == '開始' || CommndType == '再開' || CommndType.toUpperCase() == 'START'){
+        if (RunFlag){
           if ($gameTemp.isPlaytest()) console.log('オリジナルタイマーは実行中です');
           return;
         }
-        if ($gameTimer._fftfantt_OriginalTimer_Run){
+        if (!SetFlag){
           if (!$gameTemp.isPlaytest()) console.log('タイマーが設定されていません');
           return;
         }
-        $gameTimer._fftfantt_OriginalTimer_Run = true;
-        timer_run();
-        OriginalTimer = setInterval(timer_run,count_unit);
+        RunFlag = true;
+        if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Run = true;
+        TimerRun();
+        OriginalTimer = setInterval(TimerRun,CountUnit);
       }
       
-      if (commnd_type == '停止' || commnd_type.toUpperCase() == 'STOP'){
+      if (CommndType == '停止' || CommndType.toUpperCase() == 'STOP'){
         clearInterval(OriginalTimer);
-        $gameTimer._fftfantt_OriginalTimer_Run = false;
+        RunFlag = false;
+        if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Run = false;
       }
       
-      if (commnd_type == '表示' || commnd_type.toUpperCase() == 'DISPLAY'){
-        $gameTimer._fftfantt_OriginalTimer_Display = true;
-        opacity = 255;
+      if (CommndType == '表示' || CommndType.toUpperCase() == 'DISPLAY'){
+        opacity = 255
+        if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Display = true;
         return;
       }
       
-      if (commnd_type == '非表示' || commnd_type.toUpperCase() == 'HIDE'){
-        $gameTimer._fftfantt_OriginalTimer_Display = false;
+      if (CommndType == '非表示' || CommndType.toUpperCase() == 'HIDE'){
         opacity = 0;
+        if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Display = true;
         return;
       }
       
-      if (commnd_type == '初期化' || commnd_type.toUpperCase() == 'INITIALIZE'){
-        Game_Timer.prototype.fftfantt_OriginalTimer_initialize();
+      if (CommndType == '初期化' || CommndType.toUpperCase() == 'INITIALIZE'){
+        if (TimerSave == 'YES'){
+          Game_Timer.prototype.fftfanttOriginalTimer_Initialize();
+        }
+        
         return;
       }
 
-      if (commnd_type == '取得' || commnd_type.toUpperCase() == 'GET'){
-        timer_get(args);
+      if (CommndType == '取得' || CommndType.toUpperCase() == 'GET'){
+        TimerGet(args);
       }
-      
     }
   };
+
+
+  //=============================================================================
+  // TimerSet
+  //  プラグインコマンドで指定された値をセットします
+  //=============================================================================
   
-  function timer_set(args){
-    timer_type = args[1];
+  function TimerInitialize(){
+    OriginalTimer = null;
+    SetFlag = false;
+    RunFlag = false;
+    DisplayMode = '表示';
+    Count = 0;
+    CountUnit = 0;
+    CountTime = 0;
+    CommndType = '';
+    TimerType = 0;
+    TimerLimit = 0;
+    day = 0;
+    hr = 0;
+    min = 0;
+    sec = 0;
+    Hsec = 0;
+    TimerText = '';
+    ShowText = '';
+    pictureId = 0;
+    fontsize = 32; 
+    name = '';
+    origin = 0;
+    x = 0;
+    y = 0;
+    scaleX = 100;
+    scaleY = 100;
+    opacity = 255;
+    blendMode = 0;
+  };
+  
+  
+  //=============================================================================
+  // TimerSet
+  //  プラグインコマンドで指定された値をセットします
+  //=============================================================================
+  
+  function TimerSet(args){
+    if (pictureId !== 0) $gameScreen.erasePicture(pictureId);
+    TimerType = args[1];
     var timer_tmp_array = args[2].match(/((\d+)(d|日))?((\d+)(h|時間))?((\d+)(m|分間?))?((\d+)(s|秒間?))?((\d+)(x))?((\d+)(c))?/);
-    timer_limit = 0;
-    if (timer_tmp_array[2])  timer_limit = timer_limit + parseInt(timer_tmp_array[2],10) * 8640000;
-    if (timer_tmp_array[5])  timer_limit = timer_limit + parseInt(timer_tmp_array[5],10) * 360000;
-    if (timer_tmp_array[8])  timer_limit = timer_limit + parseInt(timer_tmp_array[8],10) * 6000;
-    if (timer_tmp_array[11]) timer_limit = timer_limit + parseInt(timer_tmp_array[11],10) * 100;
-    if (timer_tmp_array[14]) timer_limit = timer_limit + parseInt(timer_tmp_array[14],10) * 10;
-    if (timer_tmp_array[17]) timer_limit = timer_limit + parseInt(timer_tmp_array[17],10);
+    TimerLimit = 0;
+    if (timer_tmp_array[2])  TimerLimit = TimerLimit + parseInt(timer_tmp_array[2],10) * 8640000;
+    if (timer_tmp_array[5])  TimerLimit = TimerLimit + parseInt(timer_tmp_array[5],10) * 360000;
+    if (timer_tmp_array[8])  TimerLimit = TimerLimit + parseInt(timer_tmp_array[8],10) * 6000;
+    if (timer_tmp_array[11]) TimerLimit = TimerLimit + parseInt(timer_tmp_array[11],10) * 100;
+    if (timer_tmp_array[14]) TimerLimit = TimerLimit + parseInt(timer_tmp_array[14],10) * 10;
+    if (timer_tmp_array[17]) TimerLimit = TimerLimit + parseInt(timer_tmp_array[17],10);
     pictureId = parseInt(args[3],10);
     fontsize = parseInt(args[4],10);
     x = parseInt(args[5],10);
     y = parseInt(args[6],10);
-    display_mode = args[7];
-    if (display_mode == '非表示' || display_mode.toUpperCase() == 'HIDE'){
-      $gameTimer._fftfantt_OriginalTimer_Display = false;
+    DisplayMode = args[7];
+    if (DisplayMode == '非表示' || DisplayMode.toUpperCase() == 'HIDE'){
       opacity = 0;
+      if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Display = false;
     }else{
-      $gameTimer._fftfantt_OriginalTimer_Display = true;
       opacity = 255;
+      if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Display = true;
     }
-    timer_text = args[8];
+    TimerText = args[8];
     if (args.length > 8){
       for (var i=9;i<args.length; i++) {
-        timer_text = timer_text + ' ' + args[i];
+        TimerText = TimerText + ' ' + args[i];
       }
     }
-    timer_text = timer_text.toUpperCase();
-    count_unit = 1000;
-    if (~timer_text.indexOf('X')) count_unit = 100;
-    if (~timer_text.indexOf('C')) count_unit = 10;
-    $gameTimer._fftfantt_OriginalTimer_Timer_Type = timer_type;
-    $gameTimer._fftfantt_OriginalTimer_Timer_Limit = args[2];
-    $gameTimer._fftfantt_OriginalTimer_Timer_Text = timer_text;
-    $gameTimer._fftfantt_OriginalTimer_PctureId = pictureId;
-    $gameTimer._fftfantt_OriginalTimer_FontSize = fontsize;
-    $gameTimer._fftfantt_OriginalTimer_X = x;
-    $gameTimer._fftfantt_OriginalTimer_Y = y;
-    $gameTimer._fftfantt_OriginalTimer_Display_Mode = display_mode;
-    $gameTimer._fftfantt_OriginalTimer_Timer_Text = timer_text;
-  
-    $gameTimer._fftfantt_OriginalTimer_Set = true;
-    count = $gameTimer._fftfantt_OriginalTimer_Count;
+    TimerText = TimerText.toUpperCase();
+    CountUnit = 1000;
+    if (~TimerText.indexOf('X') || ~args[2].indexOf('x')) CountUnit = 100;
+    if (~TimerText.indexOf('C') || ~args[2].indexOf('x')) CountUnit = 10;
+    if (TimerSave == 'YES'){
+      $gameTimer._fftfanttOriginalTimer_TimerType = TimerType;
+      $gameTimer._fftfanttOriginalTimer_TimerLimit = args[2];
+      $gameTimer._fftfanttOriginalTimer_TimerText = TimerText;
+      $gameTimer._fftfanttOriginalTimer_PctureId = pictureId;
+      $gameTimer._fftfanttOriginalTimer_FontSize = fontsize;
+      $gameTimer._fftfanttOriginalTimer_X = x;
+      $gameTimer._fftfanttOriginalTimer_Y = y;
+      $gameTimer._fftfanttOriginalTimer_DisplayMode = DisplayMode;
+      $gameTimer._fftfanttOriginalTimer_TimerText = TimerText;
+      $gameTimer._fftfanttOriginalTimer_Set = true;
+      Count = $gameTimer._fftfanttOriginalTimer_Count;
+    }
   }
+
+
+  //=============================================================================
+  // TimerRun
+  //  タイマー実行時の処理
+  //=============================================================================
   
-  function timer_run(){
-    if (count >= timer_limit) $gameTimer._fftfantt_OriginalTimer_Run = false;
-    if (!$gameTimer._fftfantt_OriginalTimer_Run){
+  function TimerRun(){
+    if (Count >= TimerLimit) {
+      RunFlag = false;
+      if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Run = false;
+    }
+    if (!RunFlag){
       clearInterval(OriginalTimer);
       return;
     }
-    count = count + count_unit / 10;
-    if (timer_type == 'アップ' || timer_type.toUpperCase() == 'UP'){
-      count_time = count;
+    Count = Count + CountUnit / 10;
+    if (TimerType == 'アップ' || TimerType.toUpperCase() == 'UP'){
+      CountTime = Count;
     }else{
-      count_time = timer_limit - count;
+      CountTime = TimerLimit - Count;
     }
-    day = parseInt(count_time / 8640000,10);
-    hr = parseInt((count_time % 8640000) / 360000,10);
-    min = parseInt((count_time % 360000) / 6000,10);
-    sec = parseInt((count_time % 6000)/100,10);
-    Hsec = count_time % 100;
-    show_text = timer_text;
-    show_text = show_text.replace("D",day);
-    show_text = show_text.replace("HH",("0"+hr).slice(-2));
-    show_text = show_text.replace("H",hr);
-    show_text = show_text.replace("MM",("0"+min).slice(-2));
-    show_text = show_text.replace("M",min);
-    show_text = show_text.replace("SS",("0"+sec).slice(-2));
-    show_text = show_text.replace("S",sec);
-    show_text = show_text.replace("X",("0"+Hsec).slice(-2).substr(0,1));
-    show_text = show_text.replace("C",("0"+Hsec).slice(-2).substr(1,1));
-    $gameScreen.fftfantt_SetOriginalTimerText(show_text,fontsize);
+    day = parseInt(Math.floor(CountTime / 8640000),10);
+    hr = parseInt((CountTime % 8640000) / 360000,10);
+    min = parseInt((CountTime % 360000) / 6000,10);
+    sec = parseInt((CountTime % 6000)/100,10);
+    Hsec = CountTime % 100;
+    ShowText = TimerText;
+    ShowText = ShowText.replace("D",day);
+    ShowText = ShowText.replace("HH",("0"+hr).slice(-2));
+    ShowText = ShowText.replace("H",hr);
+    ShowText = ShowText.replace("MM",("0"+min).slice(-2));
+    ShowText = ShowText.replace("M",min);
+    ShowText = ShowText.replace("SS",("0"+sec).slice(-2));
+    ShowText = ShowText.replace("S",sec);
+    ShowText = ShowText.replace("X",("0"+Hsec).slice(-2).substr(0,1));
+    ShowText = ShowText.replace("C",("0"+Hsec).slice(-2).substr(1,1));
+    name = Date.now().toString();
     $gameScreen.showPicture(pictureId, name, origin, x, y, scaleX, scaleY, opacity, blendMode);
-    $gameTimer._fftfantt_OriginalTimer_Count = count;
+    if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Count = Count;
   };
 
-  function timer_get(args){
+
+  //=============================================================================
+  // TimerGet
+  //  プラグインコマンドで指定されたタイマーの値を取得します
+  //=============================================================================
+
+  function TimerGet(args){
+    var GetType = args[1].toUpperCase
     if (args[1] == '表示値' || args[1].toUpperCase() == 'DISPLAYVALUE'){
-      $gameVariables._data[parseInt(args[2],10)] = show_text;
+      $gameVariables._data[parseInt(args[2],10)] = ShowText;
       return;
     }
     if (args[1] == '値' || args[1].toUpperCase() == 'VALUE'){
-      $gameVariables._data[parseInt(args[2],10)] = parseInt(count_time,10);
+      $gameVariables._data[parseInt(args[2],10)] = parseInt(CountTime,10);
       return;
     }
     if (args[1] == 'セット値' || args[1].toUpperCase() == 'SETVALUE'){
-      $gameVariables._data[parseInt(args[2],10)] = parseInt(count_time,10);
+      $gameVariables._data[parseInt(args[2],10)] = parseInt(CountTime,10);
       return;
     }
     if (args[1] == '日' || args[1].toUpperCase() == 'DAY' || args[1].toUpperCase() == 'D'){
@@ -313,7 +394,7 @@
       return;
     }
     if (args[1] == '状態'){
-      if ($gameTimer._fftfantt_OriginalTimer_Run) {
+      if (RunFlag) {
         $gameVariables._data[parseInt(args[2],10)] = '実行中';
       } else {
         $gameVariables._data[parseInt(args[2],10)] = '停止中'
@@ -321,7 +402,7 @@
       return;
     }
     if (args[1].toUpperCase() == 'STATE'){
-      if ($gameTimer._fftfantt_OriginalTimer_Run) {
+      if (RunFlag) {
         $gameVariables._data[parseInt(args[2],10)] = 'RUN';
       } else {
         $gameVariables._data[parseInt(args[2],10)] = 'STOP';
@@ -330,164 +411,111 @@
     }
   }
 
+
   //=============================================================================
-  // Game_Screen
-  //  オリジナルタイマー表示用の動的ピクチャプロパティを追加定義します。
+  // Sprite_Picture
+  //  画像の動的生成を追加定義します。
   //=============================================================================
-  var _Game_Screen_clear = Game_Screen.prototype.clear;
-  Game_Screen.prototype.clear = function() {
-    _Game_Screen_clear.call(this);
-    this.fftfantt_ClearOriginalTimerText();
-  };
 
-  Game_Screen.prototype.fftfantt_ClearOriginalTimerText = function() {
-    this._fftfantt_TimerTextFlag = false;
-    this._fftfantt_TimerTextValue = "";
-    this._fftfantt_TimerTextSize = 0;
-  };
-
-    Game_Screen.prototype.fftfantt_SetOriginalTimerText = function(value, size) {
-      this._fftfantt_TimerTextFlag = true;
-      this._fftfantt_TimerTextValue = value;
-      this._fftfantt_TimerTextSize = size;
-    };
-
-    //=============================================================================
-    // Game_Picture
-    //  動的ピクチャ用のプロパティを追加定義し、表示処理を動的ピクチャ対応に変更します。
-    //=============================================================================
-    var _Game_Picture_initBasic = Game_Picture.prototype.initBasic;
-    Game_Picture.prototype.initBasic = function() {
-      _Game_Picture_initBasic.call(this);
-      this._fftfantt_TimerTextFlag     = false;
-      this._fftfantt_TimerTextValue    = "";
-      this._fftfantt_TimerTextSize    = 0;
-    };
-
-    var _Game_Picture_show = Game_Picture.prototype.show;
-    Game_Picture.prototype.show = function(name, origin, x, y, scaleX,
-                                           scaleY, opacity, blendMode) {
-      if ($gameScreen._fftfantt_TimerTextFlag) {
-        var window = SceneManager._scene._fftfantt_TimerTextHiddenWindow; // 制御文字の使用とサイズ計算のための隠しウィンドウ
-        arguments[0] = Date.now().toString(); // 参照されません
-        this._fftfantt_TimerTextFlag    = true;
-        this._fftfantt_TimerTextValue   = $gameScreen._fftfantt_TimerTextValue;
-        this._fftfantt_TimerTextSize    = $gameScreen._fftfantt_TimerTextSize;
-            $gameScreen.fftfantt_ClearOriginalTimerText();
-        } else {
-            this._fftfantt_TimerTextFlag   = false;
-            this._fftfantt_TimerTextValue  = "";
-            this._fftfantt_TimerTextSize   = 0;
-        }
-        _Game_Picture_show.apply(this, arguments);
-    };
-
-    //=============================================================================
-    // Sprite_Picture
-    //  画像の動的生成を追加定義します。
-    //=============================================================================
-
-    var _Sprite_Picture_loadBitmap = Sprite_Picture.prototype.loadBitmap;
-    Sprite_Picture.prototype.loadBitmap = function() {
-        if (this.picture()._fftfantt_TimerTextFlag ) {
-            this.fftfantt_TimerDynamicBitmap();
-        } else {
-            _Sprite_Picture_loadBitmap.call(this);
-        }
-    };
-
-    Sprite_Picture.prototype.fftfantt_TimerDynamicBitmap = function() {
-        var window = SceneManager._scene._fftfantt_TimerTextHiddenWindow; // 制御文字の使用とサイズ計算のための隠しウィンドウ
-        if (this.picture()._fftfantt_TimerTextSize > 0) window.contents.fontSize = this.picture()._fftfantt_TimerTextSize;
-        var textState = {index: 0, x: 0, y: 0, text: this.picture()._fftfantt_TimerTextValue};
-        var bitmap = new Bitmap(window.textWidth(textState.text) * 1.5, window.calcTextHeight(textState, false));
-        while (textState.text[textState.index]) {
-            this.processCharacter(textState, bitmap);
-        }
-        this.bitmap = bitmap;
-    };
-    
-    Sprite_Picture.prototype.processCharacter = function(textState, bitmap) {
-        var window = SceneManager._scene._fftfantt_TimerTextHiddenWindow;
-        var c = textState.text[textState.index++];
-        var w = window.textWidth(c);
-
-        bitmap.fontSize = window.contents.fontSize;
-        bitmap.drawText(c, textState.x, textState.y, w * 2, bitmap.height, "left");
-        textState.x += w;
-    };
-
-    //=============================================================================
-    // Scene_Map
-    //  動的ピクチャ作成用の隠しウィンドウを追加定義します。
-    //=============================================================================
-    var _Scene_Map_createDisplayObjects = Scene_Map.prototype.createDisplayObjects;
-    
-    Scene_Map.prototype.createDisplayObjects = function() {
-        this._fftfantt_TimerTextHiddenWindow = new Window_Base(1,1,1,1);
-        this._fftfantt_TimerTextHiddenWindow.hide();
-        this._fftfantt_TimerTextHiddenWindow.deactivate();
-        _Scene_Map_createDisplayObjects.call(this);
-        this.addChild(this._fftfantt_TimerTextHiddenWindow);
-    };
-
-    //=============================================================================
-    // Scene_Battle
-    //  動的ピクチャ作成用の隠しウィンドウを追加定義します。
-    //=============================================================================
-    var _Scene_Battle_createDisplayObjects = Scene_Battle.prototype.createDisplayObjects;
-    Scene_Battle.prototype.createDisplayObjects = function() {
-        this._fftfantt_TimerTextHiddenWindow = new Window_Base(1,1,1,1);
-        this._fftfantt_TimerTextHiddenWindow.hide();
-        this._fftfantt_TimerTextHiddenWindow.deactivate();
-        _Scene_Battle_createDisplayObjects.call(this);
-        this.addChild(this._fftfantt_TimerTextHiddenWindow);
-    };
-    
-  //=============================================================================
-  // Game_Timer
-  //  オリジナルタイマー用プロパティを追加定義します
-  //=============================================================================
-  Game_Timer.prototype.fftfantt_OriginalTimer_initialize = function() {
-    this._fftfantt_OriginalTimer_Count = 0;
-    this._fftfantt_OriginalTimer_Set = false;
-    this._fftfantt_OriginalTimer_Run = false;
-    this._fftfantt_OriginalTimer_Display = false;
-    this._fftfantt_OriginalTimer_Timer_Type = '';
-    this._fftfantt_OriginalTimer_Timer_Limit = 0;
-    this._fftfantt_OriginalTimer_PctureId = 0;
-    this._fftfantt_OriginalTimer_FontSize = 0;
-    this._fftfantt_OriginalTimer_X = 0;
-    this._fftfantt_OriginalTimer_Y = 0;
-    this._fftfantt_OriginalTimer_Display_Mode = '';
-    this._fftfantt_OriginalTimer_Timer_Text = '';
-  };
-  
-  Game_Timer.prototype.fftfantt_OriginalTimer_updateBitmap = function() {
-    if ($gameTimer !== null){
-        if (!$gameTimer._fftfantt_OriginalTimer_Set) return;
+  var _Sprite_Picture_loadBitmap = Sprite_Picture.prototype.loadBitmap;
+  Sprite_Picture.prototype.loadBitmap = function() {
+        if (this.picture()._name == name) {
+      this.fftfanttOriginalTimer_UpdateShowText();
+    } else {
+      _Sprite_Picture_loadBitmap.call(this);
     }
+  };
 
-    var args = [];
-    args[0] = '設定';
-    args[1] = $gameTimer._fftfantt_OriginalTimer_Timer_Type;
-    args[2] = $gameTimer._fftfantt_OriginalTimer_Timer_Limit;
-    args[3] = $gameTimer._fftfantt_OriginalTimer_PctureId;
-    args[4] = $gameTimer._fftfantt_OriginalTimer_FontSize;
-    args[5] = $gameTimer._fftfantt_OriginalTimer_X;
-    args[6] = $gameTimer._fftfantt_OriginalTimer_Y;
-    args[7] = $gameTimer._fftfantt_OriginalTimer_Display_Mode;
-    args[8] = $gameTimer._fftfantt_OriginalTimer_Timer_Text;
-    timer_set(args);
-    if (!$gameTimer._fftfantt_OriginalTimer_Run) return;
-    clearInterval(OriginalTimer);
-    OriginalTimer = setInterval(timer_run,count_unit);
-  }
+  Sprite_Picture.prototype.fftfanttOriginalTimer_UpdateShowText = function(bitmap) {
+    this.bitmap = new Bitmap(ShowText.length * fontsize + x ,(fontsize + y) *1.0 )  ;
+    this.bitmap.fontSize = fontsize;
+    this.bitmap.clear();
+    this.bitmap.drawText(ShowText, x, y,0 ,0, "left");
+  };
+
+
+  //=============================================================================
+  // DataManager
+  //  TimerSaveがNOの場合、セーブ前にオリジナルタイマーのオブジェクトを削除します
+  //=============================================================================
+  
+  var _Scene_Save_onSavefileOk = Scene_Save.prototype.onSavefileOk;
+  Scene_Save.prototype.onSavefileOk = function() {
+    if (pictureId !== 0) $gameScreen.erasePicture(pictureId);
+    if (TimerSave !== 'YES'){
+      delete $gameTimer._fftfanttOriginalTimer_Count;
+      delete $gameTimer._fftfanttOriginalTimer_Set;
+      delete $gameTimer._fftfanttOriginalTimer_Run;
+      delete $gameTimer._fftfanttOriginalTimer_Display;
+      delete $gameTimer._fftfanttOriginalTimer_TimerType;
+      delete $gameTimer._fftfanttOriginalTimer_TimerLimit;
+      delete $gameTimer._fftfanttOriginalTimer_PctureId;
+      delete $gameTimer._fftfanttOriginalTimer_FontSize;
+      delete $gameTimer._fftfanttOriginalTimer_X;
+      delete $gameTimer._fftfanttOriginalTimer_Y;
+      delete $gameTimer._fftfanttOriginalTimer_DisplayMode;
+      delete $gameTimer._fftfanttOriginalTimer_TimerText;
+    }
+  _Scene_Save_onSavefileOk.call(this);
+  };
+
+
+  //=============================================================================
+  // Scene_Load
+  //  ロード時にタイマーを再実行するための処理追加定義します
+  //=============================================================================
   
   var _Scene_Load_onLoadSuccess = Scene_Load.prototype.onLoadSuccess;
     Scene_Load.prototype.onLoadSuccess = function() {
     _Scene_Load_onLoadSuccess.call(this);
-    Game_Timer.prototype.fftfantt_OriginalTimer_updateBitmap();
+    Game_Timer.prototype.fftfanttOriginalTimer_Reinitiation();
+  };
+  
+
+  //=============================================================================
+  // Game_Timer
+  //  オリジナルタイマー用のメソッドを追加定義します
+  //=============================================================================
+  
+  Game_Timer.prototype.fftfanttOriginalTimer_Initialize = function() {
+    if (TimerSave !== 'YES') return;
+    if (pictureId !== 0) $gameScreen.erasePicture(pictureId);
+    this._fftfanttOriginalTimer_Count = 0;
+    this._fftfanttOriginalTimer_Set = false;
+    this._fftfanttOriginalTimer_Run = false;
+    this._fftfanttOriginalTimer_Display = false;
+    this._fftfanttOriginalTimer_TimerType = '';
+    this._fftfanttOriginalTimer_TimerLimit = 0;
+    this._fftfanttOriginalTimer_PctureId = 0;
+    this._fftfanttOriginalTimer_FontSize = 0;
+    this._fftfanttOriginalTimer_X = 0;
+    this._fftfanttOriginalTimer_Y = 0;
+    this._fftfanttOriginalTimer_DisplayMode = '';
+    this._fftfanttOriginalTimer_TimerText = '';
+  };
+  
+  Game_Timer.prototype.fftfanttOriginalTimer_Reinitiation = function() {
+    if (TimerSave !== 'YES') return;
+    if ($gameTimer == null) return;
+    if (!Object.prototype.hasOwnProperty.call($gameTimer, 'fftfanttOriginalTimer_Set')) return;
+    if (!$gameTimer_fftfanttOriginalTimer_Set) return;
+    var args = [];
+    args[0] = '設定';
+    args[1] = $gameTimer._fftfanttOriginalTimer_TimerType;
+    args[2] = $gameTimer._fftfanttOriginalTimer_TimerLimit;
+    args[3] = $gameTimer._fftfanttOriginalTimer_PctureId;
+    args[4] = $gameTimer._fftfanttOriginalTimer_FontSize;
+    args[5] = $gameTimer._fftfanttOriginalTimer_X;
+    args[6] = $gameTimer._fftfanttOriginalTimer_Y;
+    args[7] = $gameTimer._fftfanttOriginalTimer_DisplayMode;
+    args[8] = $gameTimer._fftfanttOriginalTimer_TimerText;
+    Count = $gameTimer._fftfanttOriginalTimer_Count
+    SetFlag = $gameTimer._fftfanttOriginalTimer_Set
+    RunFlag = $gameTimer._fftfanttOriginalTimer_Run
+    TimerSet(args);
+    if (!RunFlag) return;
+    clearInterval(OriginalTimer);
+    OriginalTimer = setInterval(TimerRun,CountUnit);
   };
   
 })();
