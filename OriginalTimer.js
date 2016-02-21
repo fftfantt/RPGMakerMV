@@ -8,6 +8,7 @@
 // Version
 // 0.1.0 2016/2/15 β版
 // 1.0.0 2016/2/21 初版
+// 1.0.1 2016/2/21 TimerSaveがYESでも再実行されない不具合修正
 // ----------------------------------------------------------------------------
 // [HomePage]: https://googledrive.com/host/0BxiSZT-B8lvFOUFhVTF6VjNnUGc/index.html 
 // [Twitter] : https://twitter.com/fftfantt/
@@ -498,8 +499,8 @@
   Game_Timer.prototype.fftfanttOriginalTimer_Reinitiation = function() {
     if (TimerSave !== 'YES') return;
     if ($gameTimer == null) return;
-    if (!Object.prototype.hasOwnProperty.call($gameTimer, 'fftfanttOriginalTimer_Set')) return;
-    if (!$gameTimer_fftfanttOriginalTimer_Set) return;
+    if (!Object.prototype.hasOwnProperty.call($gameTimer, '_fftfanttOriginalTimer_Set')) return;
+    if (!$gameTimer._fftfanttOriginalTimer_Set) return;
     var args = [];
     args[0] = '設定';
     args[1] = $gameTimer._fftfanttOriginalTimer_TimerType;
