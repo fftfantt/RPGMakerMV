@@ -9,6 +9,7 @@
 // 0.1.0 2016/2/15 β版
 // 1.0.0 2016/2/21 初版
 // 1.0.1 2016/2/21 TimerSaveがYESでも再実行されない不具合修正
+// 1.0.2 2016/2/21 初期化関連の処理の見直し
 // ----------------------------------------------------------------------------
 // [HomePage]: https://googledrive.com/host/0BxiSZT-B8lvFOUFhVTF6VjNnUGc/index.html 
 // [Twitter] : https://twitter.com/fftfantt/
@@ -121,12 +122,12 @@
   var OriginalTimer = null;
   var SetFlag = false;
   var RunFlag = false;
-  var DisplayMode = '表示';
+  var DisplayMode = '';
   var Count = 0;
   var CountUnit = 0;
   var CountTime = 0;
   var CommndType = '';
-  var TimerType = 0;
+  var TimerType = '';
   var TimerLimit = 0;
   var day = 0;
   var hr = 0;
@@ -200,13 +201,13 @@
       
       if (CommndType == '表示' || CommndType.toUpperCase() == 'DISPLAY'){
         opacity = 255
-        if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Display = true;
+        if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_DisplayMode = '表示';
         return;
       }
       
       if (CommndType == '非表示' || CommndType.toUpperCase() == 'HIDE'){
         opacity = 0;
-        if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Display = true;
+        if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_DisplayMode = '非表示';
         return;
       }
       
@@ -214,7 +215,7 @@
         if (TimerSave == 'YES'){
           Game_Timer.prototype.fftfanttOriginalTimer_Initialize();
         }
-        
+        TimerInitialize();
         return;
       }
 
@@ -226,7 +227,7 @@
 
 
   //=============================================================================
-  // TimerSet
+  // TimerInitialize
   //  プラグインコマンドで指定された値をセットします
   //=============================================================================
   
@@ -234,12 +235,12 @@
     OriginalTimer = null;
     SetFlag = false;
     RunFlag = false;
-    DisplayMode = '表示';
+    DisplayMode = '';
     Count = 0;
     CountUnit = 0;
     CountTime = 0;
     CommndType = '';
-    TimerType = 0;
+    TimerType = '';
     TimerLimit = 0;
     day = 0;
     hr = 0;
@@ -258,6 +259,18 @@
     scaleY = 100;
     opacity = 255;
     blendMode = 0;
+    if (TimerSave == 'YES'){
+      $gameTimer._fftfanttOriginalTimer_TimerType = '';
+      $gameTimer._fftfanttOriginalTimer_TimerLimit = 0;
+      $gameTimer._fftfanttOriginalTimer_TimerText = '';
+      $gameTimer._fftfanttOriginalTimer_PctureId = 0;
+      $gameTimer._fftfanttOriginalTimer_FontSize = 32;
+      $gameTimer._fftfanttOriginalTimer_X = 0;
+      $gameTimer._fftfanttOriginalTimer_Y = 0;
+      $gameTimer._fftfanttOriginalTimer_DisplayMode = '';
+      $gameTimer._fftfanttOriginalTimer_TimerText = '';
+      $gameTimer._fftfanttOriginalTimer_Set = true;
+    }
   };
   
   
@@ -284,10 +297,10 @@
     DisplayMode = args[7];
     if (DisplayMode == '非表示' || DisplayMode.toUpperCase() == 'HIDE'){
       opacity = 0;
-      if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Display = false;
+      if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_DisplayMode = '非表示';
     }else{
       opacity = 255;
-      if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Display = true;
+      if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_DisplayMode = '表示';
     }
     TimerText = args[8];
     if (args.length > 8){
@@ -296,6 +309,7 @@
       }
     }
     TimerText = TimerText.toUpperCase();
+    Count = 0;
     CountUnit = 1000;
     if (~TimerText.indexOf('X') || ~args[2].indexOf('x')) CountUnit = 100;
     if (~TimerText.indexOf('C') || ~args[2].indexOf('x')) CountUnit = 10;
@@ -310,7 +324,6 @@
       $gameTimer._fftfanttOriginalTimer_DisplayMode = DisplayMode;
       $gameTimer._fftfanttOriginalTimer_TimerText = TimerText;
       $gameTimer._fftfanttOriginalTimer_Set = true;
-      Count = $gameTimer._fftfanttOriginalTimer_Count;
     }
   }
 
@@ -437,7 +450,7 @@
 
 
   //=============================================================================
-  // DataManager
+  // Scene_Save
   //  TimerSaveがNOの場合、セーブ前にオリジナルタイマーのオブジェクトを削除します
   //=============================================================================
   
@@ -485,7 +498,6 @@
     this._fftfanttOriginalTimer_Count = 0;
     this._fftfanttOriginalTimer_Set = false;
     this._fftfanttOriginalTimer_Run = false;
-    this._fftfanttOriginalTimer_Display = false;
     this._fftfanttOriginalTimer_TimerType = '';
     this._fftfanttOriginalTimer_TimerLimit = 0;
     this._fftfanttOriginalTimer_PctureId = 0;
@@ -511,10 +523,10 @@
     args[6] = $gameTimer._fftfanttOriginalTimer_Y;
     args[7] = $gameTimer._fftfanttOriginalTimer_DisplayMode;
     args[8] = $gameTimer._fftfanttOriginalTimer_TimerText;
-    Count = $gameTimer._fftfanttOriginalTimer_Count
     SetFlag = $gameTimer._fftfanttOriginalTimer_Set
     RunFlag = $gameTimer._fftfanttOriginalTimer_Run
     TimerSet(args);
+    Count = $gameTimer._fftfanttOriginalTimer_Count
     if (!RunFlag) return;
     clearInterval(OriginalTimer);
     OriginalTimer = setInterval(TimerRun,CountUnit);
