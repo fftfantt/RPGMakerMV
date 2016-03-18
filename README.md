@@ -20,4 +20,5 @@
 １次作成者がfftfanttのものについては原則MITライセンスで利用可能です。
 
 MITライセンスについてはこちらを参照
+
  [The MIT License (MIT)](http://opensource.org/licenses/mit-license.php) 
