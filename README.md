@@ -20,4 +20,4 @@
 成果物一覧にも記載しています。
 １次作成者がfftfanttのものについては原則MITライセンスで利用可能です。
 
-MITライセンスについては [こちら)](http://opensource.org/licenses/mit-license.php) を参照
+MITライセンスについては [こちら](http://opensource.org/licenses/mit-license.php) を参照
