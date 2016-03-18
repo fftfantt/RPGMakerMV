@@ -2,6 +2,8 @@
 
 このリポジトリーはRPGツクールMV用のプラグインや補助プログラムなどを掲載しています。
 
+![](https://f4203963eb888c8f2e98ad9045f2b89e6c141ee1.googledrive.com/host/0BxiSZT-B8lvFOUFhVTF6VjNnUGc/GitHub_image/RPGMakerMV.png)
+
 
 > ##成果物一覧
 
@@ -17,7 +19,3 @@
 MITライセンスについてはこちらを参照
 
  [The MIT License (MIT)](http://opensource.org/licenses/mit-license.php) 
-　　
-　　
-
-![](https://f4203963eb888c8f2e98ad9045f2b89e6c141ee1.googledrive.com/host/0BxiSZT-B8lvFOUFhVTF6VjNnUGc/GitHub_image/RPGMakerMV.png)
