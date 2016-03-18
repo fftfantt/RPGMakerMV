@@ -5,7 +5,8 @@
 
 > ##成果物一覧
 
- [こちらをクリック](https://github.com/fftfantt/RPGMakerMV/wiki/%E6%88%90%E6%9E%9C%E7%89%A9) 
+作成した成果物については以下にまとめてあります。
+ [RPGツクールMV成果物一覧](https://github.com/fftfantt/RPGMakerMV/wiki/%E6%88%90%E6%9E%9C%E7%89%A9) 
 
 > ##ライセンス
 
@@ -13,8 +14,8 @@
 １次作成者がfftfanttのものについては原則MITライセンスで利用可能です。
 
 MITライセンスについてはこちらを参照
- http://opensource.org/licenses/mit-license.php
 
+ [The MIT License (MIT)](http://opensource.org/licenses/mit-license.php) 
 　　
 　　
 
