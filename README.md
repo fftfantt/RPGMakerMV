@@ -13,6 +13,9 @@
 １次作成者がfftfanttのものについては原則MITライセンスで利用可能です。
 
 MITライセンスについてはこちらを参照
-// http://opensource.org/licenses/mit-license.php
+ http://opensource.org/licenses/mit-license.php
+
+　　
+　　
 
 ![](https://f4203963eb888c8f2e98ad9045f2b89e6c141ee1.googledrive.com/host/0BxiSZT-B8lvFOUFhVTF6VjNnUGc/GitHub_image/RPGMakerMV.png)
