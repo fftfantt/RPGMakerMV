@@ -10,6 +10,7 @@
 // 1.0.0 2016/2/21 初版
 // 1.0.1 2016/2/21 TimerSaveがYESでも再実行されない不具合修正
 // 1.0.2 2016/2/21 初期化関連の処理の見直し
+// 1.0.2 2016/3/26 タイマースタート時に即時でカウントしないよう変更
 // ----------------------------------------------------------------------------
 // [HomePage]: https://googledrive.com/host/0BxiSZT-B8lvFOUFhVTF6VjNnUGc/index.html 
 // [Twitter] : https://twitter.com/fftfantt/
@@ -189,6 +190,7 @@
         }
         RunFlag = true;
         if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Run = true;
+        Count = Count - CountUnit / 10;
         TimerRun();
         OriginalTimer = setInterval(TimerRun,CountUnit);
       }
