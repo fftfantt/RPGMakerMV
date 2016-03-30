@@ -2,8 +2,6 @@
 
 このリポジトリーはRPGツクールMV用のプラグインや補助プログラムなどを掲載しています。
 
-![](https://f4203963eb888c8f2e98ad9045f2b89e6c141ee1.googledrive.com/host/0BxiSZT-B8lvFOUFhVTF6VjNnUGc/GitHub_image/RPGMakerMV.png)
-
 <br>
 
 > ##成果物一覧
