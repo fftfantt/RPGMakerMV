@@ -10,7 +10,8 @@
 // 1.0.0 2016/2/21 初版
 // 1.0.1 2016/2/21 TimerSaveがYESでも再実行されない不具合修正
 // 1.0.2 2016/2/21 初期化関連の処理の見直し
-// 1.0.2 2016/3/26 タイマースタート時に即時でカウントしないよう変更
+// 1.0.3 2016/3/26 タイマースタート時に即時でカウントしないよう変更
+// 1.0.4 2016/3/26 戦闘終了後にエラーになってしまう不具合を解消
 // ----------------------------------------------------------------------------
 // [HomePage]: https://googledrive.com/host/0BxiSZT-B8lvFOUFhVTF6VjNnUGc/index.html 
 // [Twitter] : https://twitter.com/fftfantt/
@@ -261,18 +262,7 @@
     scaleY = 100;
     opacity = 255;
     blendMode = 0;
-    if (TimerSave == 'YES'){
-      $gameTimer._fftfanttOriginalTimer_TimerType = '';
-      $gameTimer._fftfanttOriginalTimer_TimerLimit = 0;
-      $gameTimer._fftfanttOriginalTimer_TimerText = '';
-      $gameTimer._fftfanttOriginalTimer_PctureId = 0;
-      $gameTimer._fftfanttOriginalTimer_FontSize = 32;
-      $gameTimer._fftfanttOriginalTimer_X = 0;
-      $gameTimer._fftfanttOriginalTimer_Y = 0;
-      $gameTimer._fftfanttOriginalTimer_DisplayMode = '';
-      $gameTimer._fftfanttOriginalTimer_TimerText = '';
-      $gameTimer._fftfanttOriginalTimer_Set = true;
-    }
+    if (pictureId !== 0) $gameScreen.erasePicture(pictureId);
   };
   
   
@@ -365,7 +355,7 @@
     ShowText = ShowText.replace("S",sec);
     ShowText = ShowText.replace("X",("0"+Hsec).slice(-2).substr(0,1));
     ShowText = ShowText.replace("C",("0"+Hsec).slice(-2).substr(1,1));
-    name = Date.now().toString();
+    name = 'OriginalTimer' + Date.now().toString();
     $gameScreen.showPicture(pictureId, name, origin, x, y, scaleX, scaleY, opacity, blendMode);
     if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Count = Count;
   };
@@ -476,14 +466,24 @@
   _Scene_Save_onSavefileOk.call(this);
   };
 
+  //=============================================================================
+  // Scene_Base
+  //  戦闘終了後にピクチャが呼び出せないエラーを回避します
+  //=============================================================================
+
+  var _Scene_Base_prototype_isReady = Scene_Base.prototype.isReady;
+   Scene_Base.prototype.isReady = function() {
+    if (pictureId !== 0) $gameScreen.erasePicture(pictureId);
+    return _Scene_Base_prototype_isReady.call(this);
+  };
 
   //=============================================================================
   // Scene_Load
   //  ロード時にタイマーを再実行するための処理追加定義します
   //=============================================================================
-  
+
   var _Scene_Load_onLoadSuccess = Scene_Load.prototype.onLoadSuccess;
-    Scene_Load.prototype.onLoadSuccess = function() {
+  Scene_Load.prototype.onLoadSuccess = function() {
     _Scene_Load_onLoadSuccess.call(this);
     Game_Timer.prototype.fftfanttOriginalTimer_Reinitiation();
   };
