@@ -12,6 +12,7 @@
 // 1.0.2 2016/2/21 初期化関連の処理の見直し
 // 1.0.3 2016/3/26 タイマースタート時に即時でカウントしないよう変更
 // 1.0.4 2016/3/26 戦闘終了後にエラーになってしまう不具合を解消
+// 1.1.0 2016/3/26 タイマーの終了後に指定のスイッチをONにするコマンド追加
 // ----------------------------------------------------------------------------
 // [HomePage]: https://googledrive.com/host/0BxiSZT-B8lvFOUFhVTF6VjNnUGc/index.html 
 // [Twitter] : https://twitter.com/fftfantt/
@@ -114,6 +115,19 @@
  * 　　ORIGINALTIMER GET SEC 1
  * 　　オリジナルタイマー 取得 コンマ秒 1
  * 　　ORIGINALTIMER GET HSEC 1
+ * 
+ * ■タイマー終了後のスイッチ操作
+ * 　　引数1：タイマー終了後にスイッチを操作する場合の引数 [スイッチ or SWITCH]
+ * 　　引数2：操作の種類  [オン or ON or オフ or OFF or リバース or REVERSE]
+ * 　　引数3：操作するスイッチ番号
+ * 　◆コマンド例
+ * 　　オリジナルタイマー スイッチ オン 1
+ * 　　ORIGINALTIMER SWITCH ON 1
+ * 　　オリジナルタイマー スイッチ オフ 2
+ * 　　ORIGINALTIMER SWITCH OFF 2
+ * 　　オリジナルタイマー スイッチ リバース 3
+ * 　　ORIGINALTIMER SWITCH REVERSE 3
+ * 
  */
 
 (function () {
@@ -149,6 +163,9 @@
   var scaleY = 100;
   var opacity = 255;
   var blendMode = 0;
+  
+  var SwitchState = '';
+  var SwitchNumber = 0;
 
 
   //=============================================================================
@@ -225,6 +242,30 @@
       if (CommndType == '取得' || CommndType.toUpperCase() == 'GET'){
         TimerGet(args);
       }
+      
+      if (CommndType == 'スイッチ' || CommndType.toUpperCase() == 'SWITCH'){
+          if (!SetFlag){
+          if (!$gameTemp.isPlaytest()) console.log('タイマーが設定されていません');
+          return;
+        }
+        SwitchState =args[1]
+        switch (args[1]) {
+          case 'オン':
+            SwitchState = 'ON';
+            break;
+          case 'オフ':
+            SwitchState = 'OFF';
+            break;
+          case 'リバース':
+            SwitchState = 'REVERSE';
+            break;
+        }
+        SwitchNumber = parseInt(args[2], 10);
+        if (TimerSave == 'YES'){
+          $gameTimer._fftfanttOriginalTimer_SwitchState = SwitchState
+          $gameTimer._fftfanttOriginalTimer_SwitchNumber = SwitchNumber
+        }
+      }
     }
   };
 
@@ -262,6 +303,8 @@
     scaleY = 100;
     opacity = 255;
     blendMode = 0;
+    SwitchState = '';
+    SwitchNumber = 0;
     if (pictureId !== 0) $gameScreen.erasePicture(pictureId);
   };
   
@@ -328,6 +371,17 @@
   function TimerRun(){
     if (Count >= TimerLimit) {
       RunFlag = false;
+      if (SwitchNumber > 0){
+        if (SwitchState = 'ON') SwitchState = true;
+        if (SwitchState = 'OFF') SwitchState = false;
+        if (SwitchState = 'REVERSE'){
+          console.log(SwitchState)
+          if ($gameSwitches._data[SwitchNumber] == null) SwitchState = false;
+          SwitchState = !$gameSwitches._data[SwitchNumber]
+        }
+      $gameSwitches.setValue(SwitchNumber,SwitchState);
+      }
+      if (pictureId !== 0) $gameScreen.erasePicture(pictureId);
       if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Run = false;
     }
     if (!RunFlag){
@@ -462,6 +516,8 @@
       delete $gameTimer._fftfanttOriginalTimer_Y;
       delete $gameTimer._fftfanttOriginalTimer_DisplayMode;
       delete $gameTimer._fftfanttOriginalTimer_TimerText;
+      delete $gameTimer._fftfanttOriginalTimer_SwitchState;
+      delete $gameTimer._fftfanttOriginalTimer_SwitchNumber;
     }
   _Scene_Save_onSavefileOk.call(this);
   };
@@ -508,6 +564,8 @@
     this._fftfanttOriginalTimer_Y = 0;
     this._fftfanttOriginalTimer_DisplayMode = '';
     this._fftfanttOriginalTimer_TimerText = '';
+    this._fftfanttOriginalTimer_SwitchNumber = 0;
+    this._fftfanttOriginalTimer_SwitchState = '';
   };
   
   Game_Timer.prototype.fftfanttOriginalTimer_Reinitiation = function() {
@@ -527,6 +585,8 @@
     args[8] = $gameTimer._fftfanttOriginalTimer_TimerText;
     SetFlag = $gameTimer._fftfanttOriginalTimer_Set
     RunFlag = $gameTimer._fftfanttOriginalTimer_Run
+    SwitchState = $gameTimer._fftfanttOriginalTimer_SwitchState
+    SwitchNumber = $gameTimer._fftfanttOriginalTimer_SwitchNumber
     TimerSet(args);
     Count = $gameTimer._fftfanttOriginalTimer_Count
     if (!RunFlag) return;
