@@ -13,6 +13,7 @@
 // 1.0.3 2016/3/26 タイマースタート時に即時でカウントしないよう変更
 // 1.0.4 2016/3/26 戦闘終了後にエラーになってしまう不具合を解消
 // 1.1.0 2016/3/26 タイマーの終了後に指定のスイッチをONにするコマンド追加
+// 1.2.0 2016/3/26 タイマーのカウントをリセットするコマンド追加
 // ----------------------------------------------------------------------------
 // [HomePage]: https://googledrive.com/host/0BxiSZT-B8lvFOUFhVTF6VjNnUGc/index.html 
 // [Twitter] : https://twitter.com/fftfantt/
@@ -127,6 +128,12 @@
  * 　　ORIGINALTIMER SWITCH OFF 2
  * 　　オリジナルタイマー スイッチ リバース 3
  * 　　ORIGINALTIMER SWITCH REVERSE 3
+ * 
+ * ■タイマーカウントのリセット
+ * 　　引数1：タイマーカウントのリセットを行う場合の引数 [リセット or RESET]
+ * 　◆コマンド例
+ * 　　オリジナルタイマー リセット
+ * 　　ORIGINALTIMER RESET
  * 
  */
 
@@ -244,7 +251,7 @@
       }
       
       if (CommndType == 'スイッチ' || CommndType.toUpperCase() == 'SWITCH'){
-          if (!SetFlag){
+        if (!SetFlag){
           if (!$gameTemp.isPlaytest()) console.log('タイマーが設定されていません');
           return;
         }
@@ -265,6 +272,14 @@
           $gameTimer._fftfanttOriginalTimer_SwitchState = SwitchState
           $gameTimer._fftfanttOriginalTimer_SwitchNumber = SwitchNumber
         }
+      }
+      if (CommndType == 'リセット' || CommndType.toUpperCase() == 'RESET'){
+        if (!SetFlag){
+          if (!$gameTemp.isPlaytest()) console.log('タイマーが設定されていません');
+          return;
+        }
+        Count = 0;
+        if (!RunFlag && pictureId !== 0) $gameScreen.erasePicture(pictureId);
       }
     }
   };
