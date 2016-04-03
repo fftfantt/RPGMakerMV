@@ -11,9 +11,10 @@
 // 1.0.1 2016/2/21 TimerSaveがYESでも再実行されない不具合修正
 // 1.0.2 2016/2/21 初期化関連の処理の見直し
 // 1.0.3 2016/3/26 タイマースタート時に即時でカウントしないよう変更
-// 1.0.4 2016/3/26 戦闘終了後にエラーになってしまう不具合を解消
-// 1.1.0 2016/3/26 タイマーの終了後に指定のスイッチをONにするコマンド追加
-// 1.2.0 2016/3/26 タイマーのカウントをリセットするコマンド追加
+// 1.0.4 2016/4/03 戦闘終了後にエラーになってしまう不具合を解消
+// 1.1.0 2016/4/03 タイマーの終了後に指定のスイッチをONにするコマンド追加
+// 1.2.0 2016/4/03 タイマーのカウントをリセットするコマンド追加
+// 1.2.1 2016/4/03 タイマー値の取得で設定値が取れない不具合修正
 // ----------------------------------------------------------------------------
 // [HomePage]: https://googledrive.com/host/0BxiSZT-B8lvFOUFhVTF6VjNnUGc/index.html 
 // [Twitter] : https://twitter.com/fftfantt/
@@ -45,6 +46,8 @@
  * ■使い方の概要
  * イベントのコマンド追加からプラグインコマンドを選択し、以下のようなプラグイン
  * コマンドでタイマーを設定後開始してください。
+ * こちらにも詳しい使い方が記載されています。
+ * https://github.com/fftfantt/RPGMakerMV/wiki/OriginalTimer.js
  *  
  * ■タイマーの設定
  * 　◆パラメータ
@@ -446,7 +449,7 @@
       return;
     }
     if (args[1] == 'セット値' || args[1].toUpperCase() == 'SETVALUE'){
-      $gameVariables._data[parseInt(args[2],10)] = parseInt(CountTime,10);
+      $gameVariables._data[parseInt(args[2],10)] = parseInt(TimerLimit,10);
       return;
     }
     if (args[1] == '日' || args[1].toUpperCase() == 'DAY' || args[1].toUpperCase() == 'D'){
