@@ -1,0 +1,12 @@
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\bin\Release\SoftwareForRPGMakerMV.exe
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\bin\Release\SoftwareForRPGMakerMV.pdb
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\bin\Release\SoftwareForRPGMakerMV.xml
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Release\SoftwareForRPGMakerMV.mainForm.resources
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Release\SoftwareForRPGMakerMV.Resources.resources
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Release\SoftwareForRPGMakerMV.vbproj.GenerateResource.Cache
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Release\SoftwareForRPGMakerMV.exe
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Release\SoftwareForRPGMakerMV.xml
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Release\SoftwareForRPGMakerMV.pdb
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Release\JSON_Maker_for_MV.mainForm.resources
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Release\JSON_Maker_for_MV.Resources.resources
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Release\JSON Maker for MV.xml

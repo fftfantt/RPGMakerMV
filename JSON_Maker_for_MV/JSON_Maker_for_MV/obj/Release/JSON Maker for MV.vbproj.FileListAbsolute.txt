@@ -1,0 +1,19 @@
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\bin\Release\JSON Maker for MV.exe
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\bin\Release\JSON Maker for MV.pdb
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\bin\Release\JSON Maker for MV.xml
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Release\JSON_Maker_for_MV.mainForm.resources
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Release\JSON_Maker_for_MV.Resources.resources
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Release\JSON Maker for MV.vbproj.GenerateResource.Cache
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Release\JSON Maker for MV.exe
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Release\JSON Maker for MV.xml
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Release\JSON Maker for MV.pdb
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_Maker_for_MV\obj\Release\JSON Maker for MV.exe
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_Maker_for_MV\obj\Release\JSON Maker for MV.xml
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_Maker_for_MV\obj\Release\JSON Maker for MV.pdb
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_Maker_for_MV\bin\Release\JSON Maker for MV.exe
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_Maker_for_MV\bin\Release\JSON Maker for MV.pdb
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_Maker_for_MV\bin\Release\JSON Maker for MV.xml
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_Maker_for_MV\obj\Release\JSON Maker for MV.vbprojResolveAssemblyReference.cache
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_Maker_for_MV\obj\Release\JSON_Maker_for_MV.mainForm.resources
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_Maker_for_MV\obj\Release\JSON_Maker_for_MV.Resources.resources
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_Maker_for_MV\obj\Release\JSON Maker for MV.vbproj.GenerateResource.Cache

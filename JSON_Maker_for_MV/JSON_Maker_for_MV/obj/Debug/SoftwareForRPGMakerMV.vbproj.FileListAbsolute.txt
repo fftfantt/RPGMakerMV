@@ -1,0 +1,10 @@
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Debug\SoftwareForRPGMakerMV.vbprojResolveAssemblyReference.cache
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Debug\SoftwareForRPGMakerMV.Resources.resources
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Debug\SoftwareForRPGMakerMV.vbproj.GenerateResource.Cache
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Debug\SoftwareForRPGMakerMV.xml
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\bin\Debug\SoftwareForRPGMakerMV.exe
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\bin\Debug\SoftwareForRPGMakerMV.pdb
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\bin\Debug\SoftwareForRPGMakerMV.xml
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Debug\SoftwareForRPGMakerMV.exe
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Debug\SoftwareForRPGMakerMV.pdb
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\SoftwareForRPGMakerMV\obj\Debug\SoftwareForRPGMakerMV.mainForm.resources
