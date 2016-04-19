@@ -32,9 +32,9 @@ Public Class JSON
             'JSON生成
             Dim strText As String
         Dim kindFile As String = System.IO.Path.GetFileName(strPath)
-        strText = """" & kindFile & """" & ": [" & """" & """" & ","
+        strText = """" & kindFile & """" & ": ["
 
-            For Each strFileName As String In files
+        For Each strFileName As String In files
                 strText = strText & """"
             strText = strText & System.IO.Path.GetFileName(strFileName)
             strText = strText & """"

@@ -31,12 +31,10 @@ Public Class mainForm
 
     Private Sub ProjectPathButton_Click(sender As Object, e As EventArgs) Handles ProjectPathButton.Click
 
-        'フォルダ選択ダイアログ表示
-        FolderBrowserDialog1.SelectedPath = ProjectPathBox.Text
-        FolderBrowserDialog1.ShowDialog()
+        Dim strPath As String = ProjectPathBox.Text
+        Dim sctPath As String = FolderDialog.Show("タイトル", strPath)
+        If Not sctPath = "" Then ProjectPathBox.Text = sctPath
 
-        '対象プロジェクトに選択したフォルダセット
-        ProjectPathBox.Text = FolderBrowserDialog1.SelectedPath
 
         '書き出し先をセット
         ExportPathBox.Text = ProjectPathBox.Text & "\data\MV_Project.json"
@@ -53,7 +51,6 @@ Public Class mainForm
     Private Sub ProjectPathBox_Leave(sender As Object, e As EventArgs) Handles ProjectPathBox.Leave
 
         '書き出し先をセット
-        FolderBrowserDialog2.SelectedPath = ProjectPathBox.Text & "\data"
         ExportPathBox.Text = ProjectPathBox.Text & "\data\MV_Project.json"
 
     End Sub
@@ -66,8 +63,11 @@ Public Class mainForm
     ''' <param name="e"></param>
 
     Private Sub ExportPathButton_Click(sender As Object, e As EventArgs) Handles ExportPathButton.Click
-        FolderBrowserDialog2.ShowDialog()
-        ExportPathBox.Text = FolderBrowserDialog2.SelectedPath & "\MV_Project.json"
+
+        Dim strPath As String = ProjectPathBox.Text
+        Dim sctPath As String = FolderDialog.Show("タイトル", strPath)
+        If Not sctPath = "" Then ExportPathBox.Text = sctPath & "\MV_Project.json"
+
     End Sub
 
 

@@ -17,3 +17,6 @@ C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_M
 C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_Maker_for_MV\obj\Release\JSON_Maker_for_MV.mainForm.resources
 C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_Maker_for_MV\obj\Release\JSON_Maker_for_MV.Resources.resources
 C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_Maker_for_MV\obj\Release\JSON Maker for MV.vbproj.GenerateResource.Cache
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_Maker_for_MV\bin\Release\Interop.Shell32.dll
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_Maker_for_MV\obj\Release\Interop.Shell32.dll
+C:\Users\main\Documents\Visual Studio 2015\Projects\SoftwareForRPGMakerMV\JSON_Maker_for_MV\obj\Release\JSON Maker for MV.vbproj.ResolveComReference.cache

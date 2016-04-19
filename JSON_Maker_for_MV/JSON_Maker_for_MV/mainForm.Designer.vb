@@ -24,7 +24,6 @@ Partial Class mainForm
     Private Sub InitializeComponent()
         Me.ProjectPathButton = New System.Windows.Forms.Button()
         Me.ProjectPathBox = New System.Windows.Forms.TextBox()
-        Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.ck_bgm = New System.Windows.Forms.CheckBox()
         Me.ck_bgs = New System.Windows.Forms.CheckBox()
         Me.ck_me = New System.Windows.Forms.CheckBox()
@@ -33,7 +32,6 @@ Partial Class mainForm
         Me.ExportPathButton = New System.Windows.Forms.Button()
         Me.WriteJSONButton = New System.Windows.Forms.Button()
         Me.ExportPathBox = New System.Windows.Forms.TextBox()
-        Me.FolderBrowserDialog2 = New System.Windows.Forms.FolderBrowserDialog()
         Me.ShowJSONBox = New System.Windows.Forms.TextBox()
         Me.ExtensionBox = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -58,11 +56,11 @@ Partial Class mainForm
         '
         'ProjectPathButton
         '
-        Me.ProjectPathButton.Location = New System.Drawing.Point(38, 224)
+        Me.ProjectPathButton.Location = New System.Drawing.Point(26, 224)
         Me.ProjectPathButton.Name = "ProjectPathButton"
-        Me.ProjectPathButton.Size = New System.Drawing.Size(153, 55)
+        Me.ProjectPathButton.Size = New System.Drawing.Size(165, 55)
         Me.ProjectPathButton.TabIndex = 0
-        Me.ProjectPathButton.Text = "対象プロジェクト"
+        Me.ProjectPathButton.Text = "プロジェクトフォルダ"
         Me.ProjectPathButton.UseVisualStyleBackColor = True
         '
         'ProjectPathBox
@@ -135,18 +133,18 @@ Partial Class mainForm
         '
         'ExportPathButton
         '
-        Me.ExportPathButton.Location = New System.Drawing.Point(38, 326)
+        Me.ExportPathButton.Location = New System.Drawing.Point(26, 326)
         Me.ExportPathButton.Name = "ExportPathButton"
-        Me.ExportPathButton.Size = New System.Drawing.Size(153, 55)
+        Me.ExportPathButton.Size = New System.Drawing.Size(165, 55)
         Me.ExportPathButton.TabIndex = 11
         Me.ExportPathButton.Text = "書き出し先"
         Me.ExportPathButton.UseVisualStyleBackColor = True
         '
         'WriteJSONButton
         '
-        Me.WriteJSONButton.Location = New System.Drawing.Point(38, 422)
+        Me.WriteJSONButton.Location = New System.Drawing.Point(26, 422)
         Me.WriteJSONButton.Name = "WriteJSONButton"
-        Me.WriteJSONButton.Size = New System.Drawing.Size(153, 55)
+        Me.WriteJSONButton.Size = New System.Drawing.Size(165, 55)
         Me.WriteJSONButton.TabIndex = 12
         Me.WriteJSONButton.Text = "JSON書出"
         Me.WriteJSONButton.UseVisualStyleBackColor = True
@@ -416,7 +414,6 @@ Partial Class mainForm
 
     Friend WithEvents ProjectPathButton As Button
     Friend WithEvents ProjectPathBox As TextBox
-    Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
     Friend WithEvents ck_bgm As CheckBox
     Friend WithEvents ck_bgs As CheckBox
     Friend WithEvents ck_me As CheckBox
@@ -425,7 +422,6 @@ Partial Class mainForm
     Friend WithEvents ExportPathButton As Button
     Friend WithEvents WriteJSONButton As Button
     Friend WithEvents ExportPathBox As TextBox
-    Friend WithEvents FolderBrowserDialog2 As FolderBrowserDialog
     Friend WithEvents ShowJSONBox As TextBox
     Friend WithEvents ExtensionBox As CheckBox
     Friend WithEvents GroupBox1 As GroupBox
