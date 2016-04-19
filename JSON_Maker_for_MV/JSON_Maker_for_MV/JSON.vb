@@ -41,8 +41,8 @@ Public Class JSON
                 strText = strText & ","
             Next
 
-            strText = strText.Substring(0, strText.Length - 1)
-            strText = strText & "],"
+        If Not files.Length = 0 Then strText = strText.Substring(0, strText.Length - 1)
+        strText = strText & "],"
 
         'JSONの内容をリターン
         Return strText
