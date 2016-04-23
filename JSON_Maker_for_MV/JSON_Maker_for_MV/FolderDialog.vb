@@ -2,32 +2,46 @@
 Imports System
 Imports System.Windows.Forms
 Imports System.Runtime.InteropServices
+
+
+''' <summary>
+''' 任意のルートフォルダから下の階層のフォルダを選択できるようにしたもの
+''' 参考URL：http://dobon.net/vb/bbs/log3-46/27833.html
+''' </summary>
+
 Public Class FolderDialog
-    
+
+
     Public Overloads Shared Function Show(ByVal title As String) As String
         Return FolderDialog.BrowseForFolder(title, 576, Type.Missing)
     End Function
-    
+
+
     Public Overloads Shared Function Show(ByVal title As String, ByVal root As Environment.SpecialFolder) As String
         Return FolderDialog.BrowseForFolder(title, 576, root)
     End Function
-    
+
+
     Public Overloads Shared Function Show(ByVal title As String, ByVal root As String) As String
         Return FolderDialog.BrowseForFolder(title, 576, root)
     End Function
-    
+
+
     Public Overloads Shared Function Show(ByVal title As String, ByVal options As Flags) As String
         Return FolderDialog.BrowseForFolder(title, CType(options,Integer), Type.Missing)
     End Function
-    
+
+
     Public Overloads Shared Function Show(ByVal title As String, ByVal root As Environment.SpecialFolder, ByVal options As Flags) As String
         Return FolderDialog.BrowseForFolder(title, CType(options,Integer), CType(root,Integer))
     End Function
-    
+
+
     Public Overloads Shared Function Show(ByVal title As String, ByVal root As String, ByVal options As Flags) As String
         Return FolderDialog.BrowseForFolder(title, CType(options,Integer), root)
     End Function
-    
+
+
     Private Shared Function BrowseForFolder(ByVal title As String, ByVal options As Integer, ByVal root As Object) As String
         Dim returnPath As String = Nothing
         Dim hwnd As IntPtr = IntPtr.Zero
@@ -56,7 +70,8 @@ Public Class FolderDialog
         Marshal.ReleaseComObject(shell)
         Return returnPath
     End Function
-    
+
+
     <Flags()>  _
     Public Enum Flags
         

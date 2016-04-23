@@ -32,7 +32,7 @@ Public Class mainForm
     Private Sub ProjectPathButton_Click(sender As Object, e As EventArgs) Handles ProjectPathButton.Click
 
         Dim strPath As String = ProjectPathBox.Text
-        Dim sctPath As String = FolderDialog.Show("タイトル", strPath)
+        Dim sctPath As String = FolderDialog.Show("プロジェクトフォルダ選択", strPath)
         If Not sctPath = "" Then ProjectPathBox.Text = sctPath
 
 
@@ -65,7 +65,7 @@ Public Class mainForm
     Private Sub ExportPathButton_Click(sender As Object, e As EventArgs) Handles ExportPathButton.Click
 
         Dim strPath As String = ProjectPathBox.Text
-        Dim sctPath As String = FolderDialog.Show("タイトル", strPath)
+        Dim sctPath As String = FolderDialog.Show("書き出し先選択", strPath)
         If Not sctPath = "" Then ExportPathBox.Text = sctPath & "\MV_Project.json"
 
     End Sub
