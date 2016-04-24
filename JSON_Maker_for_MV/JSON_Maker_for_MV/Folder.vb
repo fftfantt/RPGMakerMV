@@ -9,7 +9,7 @@ Public Class Folder
 
 
     ''' <summary>
-    ''' フォルダの存在チェックを行いメッセージを表示するメソッド
+    ''' フォルダの存在チェックを行うメソッド
     ''' </summary>
     ''' <param name="strPath"></param>
     ''' <returns>True/False</returns>
@@ -17,10 +17,6 @@ Public Class Folder
     Public Shared Function Check(ByVal strPath As String)
 
         If Not System.IO.Directory.Exists(strPath) Then
-            MessageBox.Show(strPath & "が存在しません。" & vbCrLf & "正しい値を入れてください。",
-                "エラー",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error)
             Return False
         End If
 
