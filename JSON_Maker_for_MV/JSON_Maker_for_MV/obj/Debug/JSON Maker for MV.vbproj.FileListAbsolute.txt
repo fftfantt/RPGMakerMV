@@ -1,0 +1,12 @@
+C:\Users\main\Desktop\GitHub\RPGMakerMV\JSON_Maker_for_MV\JSON_Maker_for_MV\obj\Debug\Interop.Shell32.dll
+C:\Users\main\Desktop\GitHub\RPGMakerMV\JSON_Maker_for_MV\JSON_Maker_for_MV\obj\Debug\JSON Maker for MV.vbproj.ResolveComReference.cache
+C:\Users\main\Desktop\GitHub\RPGMakerMV\JSON_Maker_for_MV\JSON_Maker_for_MV\obj\Debug\JSON_Maker_for_MV.mainForm.resources
+C:\Users\main\Desktop\GitHub\RPGMakerMV\JSON_Maker_for_MV\JSON_Maker_for_MV\obj\Debug\JSON_Maker_for_MV.Resources.resources
+C:\Users\main\Desktop\GitHub\RPGMakerMV\JSON_Maker_for_MV\JSON_Maker_for_MV\obj\Debug\JSON Maker for MV.vbproj.GenerateResource.Cache
+C:\Users\main\Desktop\GitHub\RPGMakerMV\JSON_Maker_for_MV\JSON_Maker_for_MV\obj\Debug\JSON Maker for MV.xml
+C:\Users\main\Desktop\GitHub\RPGMakerMV\JSON_Maker_for_MV\JSON_Maker_for_MV\bin\Debug\JSON Maker for MV.exe
+C:\Users\main\Desktop\GitHub\RPGMakerMV\JSON_Maker_for_MV\JSON_Maker_for_MV\bin\Debug\JSON Maker for MV.pdb
+C:\Users\main\Desktop\GitHub\RPGMakerMV\JSON_Maker_for_MV\JSON_Maker_for_MV\bin\Debug\JSON Maker for MV.xml
+C:\Users\main\Desktop\GitHub\RPGMakerMV\JSON_Maker_for_MV\JSON_Maker_for_MV\bin\Debug\Interop.Shell32.dll
+C:\Users\main\Desktop\GitHub\RPGMakerMV\JSON_Maker_for_MV\JSON_Maker_for_MV\obj\Debug\JSON Maker for MV.exe
+C:\Users\main\Desktop\GitHub\RPGMakerMV\JSON_Maker_for_MV\JSON_Maker_for_MV\obj\Debug\JSON Maker for MV.pdb

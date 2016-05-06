@@ -1,0 +1,133 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+JSON Maker for MV
+</name>
+</assembly>
+<members>
+<member name="T:JSON_Maker_for_MV.Array">
+ <summary>
+ 配列を扱うクラス
+ </summary>
+</member>
+<member name="M:JSON_Maker_for_MV.Array.RemoveExtension(System.String[])">
+ <summary>
+ ファイル一覧の拡張子を除外するメソッド
+ </summary>
+ <param name="Array1">ファイル一覧の配列</param>
+ <returns>拡張子を除外したファイル一覧の配列</returns>
+</member>
+<member name="M:JSON_Maker_for_MV.Array.RemoveDuplicate(System.Object[])">
+ <summary>
+ 除外した配列を排除して圧縮するメソッド
+ </summary>
+ <param name="Array1"></param>
+ <returns></returns>
+</member>
+<member name="T:JSON_Maker_for_MV.FolderDialog">
+ <summary>
+ 任意のルートフォルダから下の階層のフォルダを選択できるようにしたもの
+ 参考URL：http://dobon.net/vb/bbs/log3-46/27833.html
+ </summary>
+</member>
+<member name="T:JSON_Maker_for_MV.Folder">
+ <summary>
+ フォルダーを扱うクラス
+ </summary>
+</member>
+<member name="M:JSON_Maker_for_MV.Folder.Check(System.String)">
+ <summary>
+ フォルダの存在チェックを行うメソッド
+ </summary>
+ <param name="strPath"></param>
+ <returns>True/False</returns>
+</member>
+<member name="T:JSON_Maker_for_MV.JSON">
+ <summary>
+ RPGツクールMV素材管理用のJSONを扱うクラス
+ </summary>
+</member>
+<member name="M:JSON_Maker_for_MV.JSON.#ctor(System.Boolean,System.Boolean)">
+ <summary>
+ 初期化処理
+ </summary>
+</member>
+<member name="M:JSON_Maker_for_MV.JSON.Generate(System.String,System.String)">
+ <summary>
+ 素材管理用JSON生成用メソッド
+ </summary>
+ <param name="strPath">素材フォルダ</param>
+ <param name="nameJSON">JSONのファイル名</param>
+ <returns>JSONの内容</returns>
+</member>
+<member name="T:JSON_Maker_for_MV.Rseregistry">
+ <summary>
+ RPG用のレジストリーを扱うクラス
+ </summary>
+</member>
+<member name="M:JSON_Maker_for_MV.Rseregistry.Read">
+ <summary>
+ RPG用のレジストリーを参照しプロジェクトファイルの
+ デフォルト書き出しパスを参照するメソッド
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:JSON_Maker_for_MV.mainForm">
+ <summary>
+ RPGツクールMV素材書き出し用のメイン画面
+ </summary>
+</member>
+<member name="M:JSON_Maker_for_MV.mainForm.MainForm_Load(System.Object,System.EventArgs)">
+ <summary>
+ レジストリーを参照するメソッド
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:JSON_Maker_for_MV.mainForm.ProjectPathButton_Click(System.Object,System.EventArgs)">
+ <summary>
+ 対象プロジェクトボタンをクリックしたときのイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:JSON_Maker_for_MV.mainForm.ProjectPathBox_Leave(System.Object,System.EventArgs)">
+ <summary>
+ 対象プロジェクトのテキストボックスからフォーカスを外したときのイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:JSON_Maker_for_MV.mainForm.ExportPathButton_Click(System.Object,System.EventArgs)">
+ <summary>
+ 書き出し先ボタンをクリックしたときのイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:JSON_Maker_for_MV.mainForm.WriteJSONButton_Click(System.Object,System.EventArgs)">
+ <summary>
+ JSON書き出しをクリックしたときのイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="T:JSON_Maker_for_MV.My.Resources.Resources">
+<summary>
+  ローカライズされた文字列などを検索するための、厳密に型指定されたリソース クラスです。
+</summary>
+</member>
+<member name="P:JSON_Maker_for_MV.My.Resources.Resources.ResourceManager">
+<summary>
+  このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
+</summary>
+</member>
+<member name="P:JSON_Maker_for_MV.My.Resources.Resources.Culture">
+<summary>
+  厳密に型指定されたこのリソース クラスを使用して、すべての検索リソースに対し、
+  現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
+</summary>
+</member>
+</members>
+</doc>

@@ -33,7 +33,7 @@ Partial Class mainForm
         Me.WriteJSONButton = New System.Windows.Forms.Button()
         Me.ExportPathBox = New System.Windows.Forms.TextBox()
         Me.ShowJSONBox = New System.Windows.Forms.TextBox()
-        Me.ExtensionBox = New System.Windows.Forms.CheckBox()
+        Me.ck_Extension = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.ck_animations = New System.Windows.Forms.CheckBox()
@@ -50,13 +50,14 @@ Partial Class mainForm
         Me.ck_tilesets = New System.Windows.Forms.CheckBox()
         Me.ck_system = New System.Windows.Forms.CheckBox()
         Me.ck_movies = New System.Windows.Forms.CheckBox()
+        Me.ck_mvfile = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'ProjectPathButton
         '
-        Me.ProjectPathButton.Location = New System.Drawing.Point(26, 224)
+        Me.ProjectPathButton.Location = New System.Drawing.Point(26, 281)
         Me.ProjectPathButton.Name = "ProjectPathButton"
         Me.ProjectPathButton.Size = New System.Drawing.Size(165, 55)
         Me.ProjectPathButton.TabIndex = 0
@@ -65,7 +66,7 @@ Partial Class mainForm
         '
         'ProjectPathBox
         '
-        Me.ProjectPathBox.Location = New System.Drawing.Point(223, 239)
+        Me.ProjectPathBox.Location = New System.Drawing.Point(223, 296)
         Me.ProjectPathBox.Name = "ProjectPathBox"
         Me.ProjectPathBox.Size = New System.Drawing.Size(712, 25)
         Me.ProjectPathBox.TabIndex = 1
@@ -124,7 +125,7 @@ Partial Class mainForm
         Me.ck_pictures.AutoSize = True
         Me.ck_pictures.Checked = True
         Me.ck_pictures.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ck_pictures.Location = New System.Drawing.Point(38, 117)
+        Me.ck_pictures.Location = New System.Drawing.Point(37, 156)
         Me.ck_pictures.Name = "ck_pictures"
         Me.ck_pictures.Size = New System.Drawing.Size(94, 22)
         Me.ck_pictures.TabIndex = 10
@@ -133,7 +134,7 @@ Partial Class mainForm
         '
         'ExportPathButton
         '
-        Me.ExportPathButton.Location = New System.Drawing.Point(26, 326)
+        Me.ExportPathButton.Location = New System.Drawing.Point(26, 383)
         Me.ExportPathButton.Name = "ExportPathButton"
         Me.ExportPathButton.Size = New System.Drawing.Size(165, 55)
         Me.ExportPathButton.TabIndex = 11
@@ -142,7 +143,7 @@ Partial Class mainForm
         '
         'WriteJSONButton
         '
-        Me.WriteJSONButton.Location = New System.Drawing.Point(26, 422)
+        Me.WriteJSONButton.Location = New System.Drawing.Point(26, 479)
         Me.WriteJSONButton.Name = "WriteJSONButton"
         Me.WriteJSONButton.Size = New System.Drawing.Size(165, 55)
         Me.WriteJSONButton.TabIndex = 12
@@ -151,14 +152,14 @@ Partial Class mainForm
         '
         'ExportPathBox
         '
-        Me.ExportPathBox.Location = New System.Drawing.Point(223, 341)
+        Me.ExportPathBox.Location = New System.Drawing.Point(223, 398)
         Me.ExportPathBox.Name = "ExportPathBox"
         Me.ExportPathBox.Size = New System.Drawing.Size(712, 25)
         Me.ExportPathBox.TabIndex = 13
         '
         'ShowJSONBox
         '
-        Me.ShowJSONBox.Location = New System.Drawing.Point(223, 422)
+        Me.ShowJSONBox.Location = New System.Drawing.Point(223, 479)
         Me.ShowJSONBox.Multiline = True
         Me.ShowJSONBox.Name = "ShowJSONBox"
         Me.ShowJSONBox.ReadOnly = True
@@ -166,15 +167,15 @@ Partial Class mainForm
         Me.ShowJSONBox.Size = New System.Drawing.Size(712, 166)
         Me.ShowJSONBox.TabIndex = 14
         '
-        'ExtensionBox
+        'ck_Extension
         '
-        Me.ExtensionBox.AutoSize = True
-        Me.ExtensionBox.Location = New System.Drawing.Point(766, 40)
-        Me.ExtensionBox.Name = "ExtensionBox"
-        Me.ExtensionBox.Size = New System.Drawing.Size(145, 22)
-        Me.ExtensionBox.TabIndex = 15
-        Me.ExtensionBox.Text = "拡張子をつける"
-        Me.ExtensionBox.UseVisualStyleBackColor = True
+        Me.ck_Extension.AutoSize = True
+        Me.ck_Extension.Location = New System.Drawing.Point(766, 40)
+        Me.ck_Extension.Name = "ck_Extension"
+        Me.ck_Extension.Size = New System.Drawing.Size(145, 22)
+        Me.ck_Extension.TabIndex = 15
+        Me.ck_Extension.Text = "拡張子をつける"
+        Me.ck_Extension.UseVisualStyleBackColor = True
         '
         'GroupBox1
         '
@@ -204,9 +205,9 @@ Partial Class mainForm
         Me.GroupBox2.Controls.Add(Me.ck_titles1)
         Me.GroupBox2.Controls.Add(Me.ck_tilesets)
         Me.GroupBox2.Controls.Add(Me.ck_system)
-        Me.GroupBox2.Location = New System.Drawing.Point(13, 87)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 126)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(922, 115)
+        Me.GroupBox2.Size = New System.Drawing.Size(922, 126)
         Me.GroupBox2.TabIndex = 17
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "img"
@@ -385,16 +386,27 @@ Partial Class mainForm
         Me.ck_movies.Text = "movies"
         Me.ck_movies.UseVisualStyleBackColor = True
         '
+        'ck_mvfile
+        '
+        Me.ck_mvfile.AutoSize = True
+        Me.ck_mvfile.Location = New System.Drawing.Point(766, 80)
+        Me.ck_mvfile.Name = "ck_mvfile"
+        Me.ck_mvfile.Size = New System.Drawing.Size(158, 22)
+        Me.ck_mvfile.TabIndex = 19
+        Me.ck_mvfile.Text = "MV用ファイルのみ"
+        Me.ck_mvfile.UseVisualStyleBackColor = True
+        '
         'mainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(963, 616)
+        Me.ClientSize = New System.Drawing.Size(963, 672)
+        Me.Controls.Add(Me.ck_mvfile)
         Me.Controls.Add(Me.ck_movies)
         Me.Controls.Add(Me.ck_pictures)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.ExtensionBox)
+        Me.Controls.Add(Me.ck_Extension)
         Me.Controls.Add(Me.ShowJSONBox)
         Me.Controls.Add(Me.ExportPathBox)
         Me.Controls.Add(Me.WriteJSONButton)
@@ -423,7 +435,7 @@ Partial Class mainForm
     Friend WithEvents WriteJSONButton As Button
     Friend WithEvents ExportPathBox As TextBox
     Friend WithEvents ShowJSONBox As TextBox
-    Friend WithEvents ExtensionBox As CheckBox
+    Friend WithEvents ck_Extension As CheckBox
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents ck_titles1 As CheckBox
@@ -440,4 +452,5 @@ Partial Class mainForm
     Friend WithEvents ck_battlebacks1 As CheckBox
     Friend WithEvents ck_titles2 As CheckBox
     Friend WithEvents ck_movies As CheckBox
+    Friend WithEvents ck_mvfile As CheckBox
 End Class

@@ -128,22 +128,14 @@ Public Class mainForm
             Exit Sub
         End Try
 
-        '拡張子の有無チェック
-        Dim Extension As String
-
-        If ExtensionBox.Checked Then
-            Extension = True
-        Else
-            Extension = False
-        End If
-
         'JSONの内容構成
+        Dim objJSON As JSON = New JSON(ck_Extension.Checked, ck_mvfile.Checked)
         Dim strText As String = "{"
         Dim errMsg As String = ""
 
         If ck_bgm.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\audio\bgm") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\audio\bgm", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\audio\bgm", ExportPathBox.Text)
             Else
                 errMsg = errMsg & "\audio\bgm"
             End If
@@ -151,7 +143,7 @@ Public Class mainForm
 
         If ck_bgs.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\audio\bgs") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\audio\bgs", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\audio\bgs", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\audio\bgs"
             End If
@@ -159,7 +151,7 @@ Public Class mainForm
 
         If ck_me.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\audio\me") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\audio\me", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\audio\me", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\audio\me"
             End If
@@ -167,7 +159,7 @@ Public Class mainForm
 
         If ck_se.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\audio\se") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\audio\se", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\audio\se", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\audio\se"
             End If
@@ -175,7 +167,7 @@ Public Class mainForm
 
         If ck_pictures.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\img\pictures") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\img\pictures", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\img\pictures", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\img\pictures"
             End If
@@ -183,7 +175,7 @@ Public Class mainForm
 
         If ck_system.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\img\system") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\img\system", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\img\system", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\img\system"
             End If
@@ -191,7 +183,7 @@ Public Class mainForm
 
         If ck_tilesets.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\img\tilesets") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\img\tilesets", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\img\tilesets", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\img\tilesets"
             End If
@@ -199,7 +191,7 @@ Public Class mainForm
 
         If ck_titles1.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\img\titles1") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\img\titles1", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\img\titles1", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\img\titles1"
             End If
@@ -207,7 +199,7 @@ Public Class mainForm
 
         If ck_titles2.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\img\titles2") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\img\titles2", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\img\titles2", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\img\titles2"
             End If
@@ -215,7 +207,7 @@ Public Class mainForm
 
         If ck_battlebacks1.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\img\battlebacks1") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\img\battlebacks1", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\img\battlebacks1", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\img\battlebacks1"
             End If
@@ -223,7 +215,7 @@ Public Class mainForm
 
         If ck_battlebacks2.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\img\battlebacks2") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\img\battlebacks2", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\img\battlebacks2", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\img\battlebacks2"
             End If
@@ -231,7 +223,7 @@ Public Class mainForm
 
         If ck_characters.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\img\characters") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\img\characters", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\img\characters", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\img\characters"
             End If
@@ -239,7 +231,7 @@ Public Class mainForm
 
         If ck_enemies.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\img\enemies") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\img\enemies", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\img\enemies", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\img\enemies"
             End If
@@ -247,7 +239,7 @@ Public Class mainForm
 
         If ck_faces.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\img\faces") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\img\faces", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\img\faces", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\img\faces"
             End If
@@ -255,7 +247,7 @@ Public Class mainForm
 
         If ck_parallaxes.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\img\parallaxes") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\img\parallaxes", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\img\parallaxes", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\img\parallaxes"
             End If
@@ -263,7 +255,7 @@ Public Class mainForm
 
         If ck_sv_actors.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\img\sv_actors") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\img\sv_actors", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\img\sv_actors", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\img\sv_actors"
             End If
@@ -271,7 +263,7 @@ Public Class mainForm
 
         If ck_sv_enemies.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\img\sv_enemies") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\img\sv_enemies", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\img\sv_enemies", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\img\sv_enemies"
             End If
@@ -279,7 +271,7 @@ Public Class mainForm
 
         If ck_animations.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\img\animations") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\img\animations", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\img\animations", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\img\animations"
             End If
@@ -287,7 +279,7 @@ Public Class mainForm
 
         If ck_movies.Checked Then
             If Folder.Check(ProjectPathBox.Text & "\movies") Then
-                strText = strText & JSON_Maker_for_MV.JSON.Generate(ProjectPathBox.Text & "\movies", ExportPathBox.Text, Extension)
+                strText = strText & objJSON.Generate(ProjectPathBox.Text & "\movies", ExportPathBox.Text)
             Else
                 errMsg = errMsg & vbCrLf & "\movies"
             End If
@@ -311,7 +303,4 @@ Public Class mainForm
         MessageBox.Show("MV_Project.jsonの作成が完了しました。", "作成完了", MessageBoxButtons.OK)
     End Sub
 
-    Private Sub ExportPathBox_TextChanged(sender As Object, e As EventArgs) Handles ExportPathBox.TextChanged
-
-    End Sub
 End Class
