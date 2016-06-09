@@ -142,24 +142,24 @@
  *
  * ■タイマー設定時間の操作
  *    引数1：タイマー設定時間の操作を行う場合の引数 [設定時間操作 or LIMITCHANGE]
- *    引数2：設定時間 (1d1h1m1s1x1c のように記載)[日 or d  時間 or h  分 or m  秒 or s x(1/10秒) c(1/100秒)]
+ *    引数2：設定時間の増減[増加 or 減少 or UP or DOWN] 
+ *    引数3：設定時間 (1d1h1m1s1x1c のように記載)[日 or d  時間 or h  分 or m  秒 or s x(1/10秒) c(1/100秒)]
  * 　◆コマンド例
  *     オリジナルタイマー 設定時間操作 増加 3m
  *     オリジナルタイマー 設定時間操作 減少 10s
  * 　　ORIGINALTIMER LIMITCHANGE UP 3m
  * 　　ORIGINALTIMER LIMITCHANGE DOWN 3m
  * 
- * 
  * ■タイマー実時間の操作
- *    引数1：タイマー実時間の操作を行う場合の引数 [設定時間操作 or LIMITCHANGE]
- *    引数2：設定時間 (1d1h1m1s1x1c のように記載)[日 or d  時間 or h  分 or m  秒 or s x(1/10秒) c(1/100秒)]
+ *    引数1：タイマー実時間の操作を行う場合の引数 [実時間操作 or TIMECHANGE]
+ *    引数2：実時間の増減[進行 or 逆行 or UP or DOWN] 
+ *    引数3：設定時間 (1d1h1m1s1x1c のように記載)[日 or d  時間 or h  分 or m  秒 or s x(1/10秒) c(1/100秒)]
  * 　◆コマンド例
  *     オリジナルタイマー 実時間操作 進行 3m
  *     オリジナルタイマー 実時間操作 逆行 10s
  * 　　ORIGINALTIMER TIMECHANGE UP 3m
  * 　　ORIGINALTIMER TIMECHANGE DOWN 3m
  * 
- * TIMECHANGE
  */
 
 (function () {
