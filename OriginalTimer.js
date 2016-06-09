@@ -15,6 +15,7 @@
 // 1.1.0 2016/4/03 タイマーの終了後に指定のスイッチをONにするコマンド追加
 // 1.2.0 2016/4/03 タイマーのカウントをリセットするコマンド追加
 // 1.2.1 2016/4/03 タイマー値の取得で設定値が取れない不具合修正
+// 1.3.0 2016/6/09 設定時間操作、実時間操作のコマンド追加
 // ----------------------------------------------------------------------------
 // [HomePage]: https://googledrive.com/host/0BxiSZT-B8lvFOUFhVTF6VjNnUGc/index.html 
 // [Twitter] : https://twitter.com/fftfantt/
@@ -138,6 +139,27 @@
  * 　　オリジナルタイマー リセット
  * 　　ORIGINALTIMER RESET
  * 
+ *
+ * ■タイマー設定時間の操作
+ *    引数1：タイマー設定時間の操作を行う場合の引数 [設定時間操作 or LIMITCHANGE]
+ *    引数2：設定時間 (1d1h1m1s1x1c のように記載)[日 or d  時間 or h  分 or m  秒 or s x(1/10秒) c(1/100秒)]
+ * 　◆コマンド例
+ *     オリジナルタイマー 設定時間操作 増加 3m
+ *     オリジナルタイマー 設定時間操作 減少 10s
+ * 　　ORIGINALTIMER LIMITCHANGE UP 3m
+ * 　　ORIGINALTIMER LIMITCHANGE DOWN 3m
+ * 
+ * 
+ * ■タイマー実時間の操作
+ *    引数1：タイマー実時間の操作を行う場合の引数 [設定時間操作 or LIMITCHANGE]
+ *    引数2：設定時間 (1d1h1m1s1x1c のように記載)[日 or d  時間 or h  分 or m  秒 or s x(1/10秒) c(1/100秒)]
+ * 　◆コマンド例
+ *     オリジナルタイマー 実時間操作 進行 3m
+ *     オリジナルタイマー 実時間操作 逆行 10s
+ * 　　ORIGINALTIMER TIMECHANGE UP 3m
+ * 　　ORIGINALTIMER TIMECHANGE DOWN 3m
+ * 
+ * TIMECHANGE
  */
 
 (function () {
@@ -325,6 +347,7 @@
           if (timer_tmp_array[11]) Count = Count + parseInt(timer_tmp_array[11],10) * 100;
           if (timer_tmp_array[14]) Count = Count + parseInt(timer_tmp_array[14],10) * 10;
           if (timer_tmp_array[17]) Count = Count + parseInt(timer_tmp_array[17],10);
+          if (Count > TimerLimit) Count = TimerLimit;
         }
         else if (args[1] == '逆行' || args[1].toUpperCase() == 'DOWN'){
           if (timer_tmp_array[2])  Count = Count - parseInt(timer_tmp_array[2],10) * 8640000;
@@ -333,7 +356,7 @@
           if (timer_tmp_array[11]) Count = Count - parseInt(timer_tmp_array[11],10) * 100;
           if (timer_tmp_array[14]) Count = Count - parseInt(timer_tmp_array[14],10) * 10;
           if (timer_tmp_array[17]) Count = Count - parseInt(timer_tmp_array[17],10);
-          if (TimerLimit < 0) TimerLimit = 0;
+          if (Count < 0) Count = 0;
         }
           if (!RunFlag && pictureId !== 0) $gameScreen.erasePicture(pictureId); 
       }
