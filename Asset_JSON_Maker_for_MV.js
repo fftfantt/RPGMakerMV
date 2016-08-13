@@ -186,7 +186,7 @@
     //フォルダ書き出し判定
     Asset_JSON_Maker_for_MV.prototype.isWriteFolder = function (dir) {
         var hash = this._folderHash;
-        var key = '' + dir;
+        var key = dir;
         if (key in hash) {
             if (hash[key] === 'ON') return true;
         } else {
