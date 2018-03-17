@@ -199,6 +199,8 @@
   var SwitchState = '';
   var SwitchNumber = 0;
 
+  var prevMsec = 0;
+
 
   //=============================================================================
   // Game_Interpreter_pluginCommand
@@ -240,7 +242,7 @@
         }
         RunFlag = true;
         if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Run = true;
-        Count = Count - CountUnit / 10;
+        prevMsec = Date.now();
         TimerRun();
         OriginalTimer = setInterval(TimerRun,CountUnit);
       }
@@ -483,9 +485,11 @@
       clearInterval(OriginalTimer);
       return;
     }
-    Count = Count + CountUnit / 10;
+    var now = Date.now();
+    Count = Count + Math.max(0, (now - prevMsec) / 10);
+    prevMsec = now;
     if (TimerType == 'アップ' || TimerType.toUpperCase() == 'UP'){
-      CountTime = Count;
+      CountTime = Math.round(Count);
     }else{
       CountTime = TimerLimit - Count;
     }
@@ -686,6 +690,7 @@
     Count = $gameTimer._fftfanttOriginalTimer_Count
     if (!RunFlag) return;
     clearInterval(OriginalTimer);
+    prevMsec = Date.now();
     OriginalTimer = setInterval(TimerRun,CountUnit);
   };
   
