@@ -242,7 +242,7 @@
         }
         RunFlag = true;
         if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Run = true;
-        prevMsec = Date.now();
+        prevMsec = 1000 * Graphics.frameCount / 60;
         TimerRun();
         OriginalTimer = setInterval(TimerRun,CountUnit);
       }
@@ -485,7 +485,7 @@
       clearInterval(OriginalTimer);
       return;
     }
-    var now = Date.now();
+    var now = 1000 * Graphics.frameCount / 60;
     Count = Count + Math.max(0, (now - prevMsec) / 10);
     prevMsec = now;
     if (TimerType == 'アップ' || TimerType.toUpperCase() == 'UP'){
@@ -690,7 +690,7 @@
     Count = $gameTimer._fftfanttOriginalTimer_Count
     if (!RunFlag) return;
     clearInterval(OriginalTimer);
-    prevMsec = Date.now();
+    prevMsec = 1000 * Graphics.frameCount / 60;
     OriginalTimer = setInterval(TimerRun,CountUnit);
   };
   
