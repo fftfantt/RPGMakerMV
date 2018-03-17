@@ -491,7 +491,7 @@
     if (TimerType == 'アップ' || TimerType.toUpperCase() == 'UP'){
       CountTime = Math.round(Count);
     }else{
-      CountTime = TimerLimit - Count;
+      CountTime = TimerLimit - Math.round(Count);
     }
     day = parseInt(Math.floor(CountTime / 8640000),10);
     hr = parseInt((CountTime % 8640000) / 360000,10);
