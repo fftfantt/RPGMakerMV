@@ -201,6 +201,9 @@
 
   var prevMsec = 0;
 
+  function getCurrentMsec(){
+    return SceneManager._currentTime || Date.now();
+  }
 
   //=============================================================================
   // Game_Interpreter_pluginCommand
@@ -242,7 +245,7 @@
         }
         RunFlag = true;
         if (TimerSave == 'YES') $gameTimer._fftfanttOriginalTimer_Run = true;
-        prevMsec = 1000 * Graphics.frameCount / 60;
+        prevMsec = getCurrentMsec();
         TimerRun();
         OriginalTimer = setInterval(TimerRun,CountUnit);
       }
@@ -485,8 +488,11 @@
       clearInterval(OriginalTimer);
       return;
     }
-    var now = 1000 * Graphics.frameCount / 60;
-    Count = Count + Math.max(0, (now - prevMsec) / 10);
+    var now = getCurrentMsec();
+    // NB: SceneManager.updateMain と同じ判定である事
+    var fTime = (now - prevMsec) / 1000;
+    if (fTime > 0.25) fTime = 0.25;
+    Count = Count + Math.max(0, fTime * 100);
     prevMsec = now;
     if (TimerType == 'アップ' || TimerType.toUpperCase() == 'UP'){
       CountTime = Math.round(Count);
@@ -690,7 +696,7 @@
     Count = $gameTimer._fftfanttOriginalTimer_Count
     if (!RunFlag) return;
     clearInterval(OriginalTimer);
-    prevMsec = 1000 * Graphics.frameCount / 60;
+    prevMsec = getCurrentMsec();
     OriginalTimer = setInterval(TimerRun,CountUnit);
   };
   
